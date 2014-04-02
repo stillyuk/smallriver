@@ -28,8 +28,8 @@ public class FileResourceService {
 		fileResourceDao.update(fileResource);
 	}
 
-	public FileResource queryByUserIdAndFileName(User user, String fileName) {
-		List<FileResource> fileResources = fileResourceDao.queryByUserIdAndFileName(user, fileName);
+	public FileResource queryByUserAndFileName(User user, String fileName) {
+		List<FileResource> fileResources = fileResourceDao.queryByUserAndFileName(user, fileName);
 		if (fileResources == null || fileResources.size() == 0) {
 			return null;
 		}

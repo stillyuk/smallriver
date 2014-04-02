@@ -30,7 +30,7 @@
 			<bean class="graduation.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
+			<mvc:mapping path="/user/signIn.*" />
 			<bean class="graduation.interceptor.SessionInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

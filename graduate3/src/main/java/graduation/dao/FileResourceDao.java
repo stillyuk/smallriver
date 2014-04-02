@@ -35,7 +35,7 @@ public class FileResourceDao extends HibernateDaoSupport {
 		});
 	}
 
-	public List<FileResource> queryByUserIdAndFileName(final User user, final String fileName) {
+	public List<FileResource> queryByUserAndFileName(final User user, final String fileName) {
 		return getHibernateTemplate().execute(new HibernateCallback<List<FileResource>>() {
 			public List<FileResource> doInHibernate(Session session) throws HibernateException {
 				Criteria c = session.createCriteria(FileResource.class);

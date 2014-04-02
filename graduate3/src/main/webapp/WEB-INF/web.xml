@@ -25,6 +25,10 @@
 		</init-param>
 	</filter>
 	<filter>
+		<filter-name>publicsession</filter-name>
+		<filter-class>graduation.filter.SessionFilter</filter-class>
+	</filter>
+	<filter>
 		<filter-name>redirect</filter-name>
 		<filter-class>graduation.filter.RedirectFilter</filter-class>
 	</filter>
@@ -37,6 +41,10 @@
 
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>publicsession</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>

@@ -31,8 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 2014-03-14 18:25
  */
 @Controller
-@RequestMapping("/file")
-@SessionAttributes({ "username", "userId" })
+@RequestMapping("/{username}/file")
+@SessionAttributes({ "username" })
 public class FileResourceController {
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -51,8 +51,7 @@ public class FileResourceController {
 	}
 
 	@RequestMapping("/doUpload")
-	public ModelAndView doUpload(MultipartFile file, @ModelAttribute("username") String username, @ModelAttribute("userId") String userId)
-			throws Exception {
+	public ModelAndView doUpload(MultipartFile file, @ModelAttribute("username") String username) throws Exception {
 		String DIR = FileUtil.FILE_UPLOAD_PATH + File.separatorChar + username;
 		File path = new File(DIR);
 		if (!path.exists()) {
@@ -60,7 +59,7 @@ public class FileResourceController {
 		}
 		file.transferTo(new File(DIR + File.separatorChar + file.getOriginalFilename()));
 		FileResource fileResource = new FileResource();
-		fileResource.setUser(userService.queryById(userId));
+		fileResource.setUser(userService.queryByUsername(username));
 		fileResource.setFileName(file.getOriginalFilename());
 		fileResource.setPath(DIR + File.separatorChar + file.getOriginalFilename());
 		fileResource.setUploadDate(new Date());
@@ -75,11 +74,11 @@ public class FileResourceController {
 	}
 
 	@RequestMapping("/doDownload")
-	public ResponseEntity<byte[]> download(@ModelAttribute("userId") String userId, String fileName) throws Exception {
+	public ResponseEntity<byte[]> download(@ModelAttribute("username") String username, String fileName) throws Exception {
 		if (fileName == null) {
 			return null;
 		}
-		FileResource fileResource = fileResourceService.queryByUserIdAndFileName(userService.queryById(userId), fileName);
+		FileResource fileResource = fileResourceService.queryByUserAndFileName(userService.queryByUsername(username), fileName);
 		if (fileResource == null) {
 			return null;
 		}
@@ -105,8 +104,8 @@ public class FileResourceController {
 	}
 
 	@RequestMapping("/fileDetail")
-	public ModelAndView fileDetail(String fileName, @ModelAttribute("userId") String userId, @ModelAttribute("username") String username) {
-		FileResource fileResource = fileResourceService.queryByUserIdAndFileName(userService.queryById(userId), fileName);
+	public ModelAndView fileDetail(String fileName, @ModelAttribute("username") String username) {
+		FileResource fileResource = fileResourceService.queryByUserAndFileName(userService.queryByUsername(username), fileName);
 		return new ModelAndView("/file/fileDetail", "fileDto", FileResourceDTO.transform(fileResource));
 	}
 }

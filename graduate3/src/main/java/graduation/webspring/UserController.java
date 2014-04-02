@@ -6,7 +6,6 @@ import graduation.core.JsonMessage;
 import graduation.domain.User;
 import graduation.service.UserService;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -24,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 2014-03-12 12:57
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/{username}/")
 public class UserController {
 	protected final Log logger = LogFactory.getLog(UserController.class);
 
@@ -32,7 +31,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping("/login")
-	public ModelAndView login(User user) {
+	public ModelAndView login(@PathVariable String username, User user) {
 		return new ModelAndView("user/login", "tip", "");
 	}
 
@@ -69,13 +68,12 @@ public class UserController {
 		return new ModelAndView("redirect:/user/" + user.getUsername(), "user", users.get(0));
 	}
 
-	@RequestMapping(value = "{username}")
+	@RequestMapping("{username}")
 	public ModelAndView userHome(@PathVariable String username) {
-		File file = new File(FileUtil.FILE_DOWNLOAD_PATH + File.separatorChar + username);
-		return new ModelAndView("user/home", "allFiles", file.listFiles());
+		return new ModelAndView("user/home");
 	}
 
-	@RequestMapping(value = "/checkUsername")
+	@RequestMapping("/checkUsername")
 	public ResponseEntity<String> checkUsername(String username) {
 		User users = userService.queryByUsername(username);
 		if (users == null) {

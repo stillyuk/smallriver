@@ -13,7 +13,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	protected Log logger = LogFactory.getLog(LoginInterceptor.class);
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		if (request.getSession().getAttribute("userId") == null) {
+		if (request.getSession().getAttribute("username") == null) {
 			response.sendRedirect("/index");
 			return false;
 		}
