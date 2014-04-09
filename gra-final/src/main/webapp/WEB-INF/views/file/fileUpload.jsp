@@ -12,7 +12,7 @@
 		<li><a href="${ctx}">Home</a></li>
 		<li class="active"><a href="#">文件上传</a></li>
 		<li><a href="${ctx}/file/download">文件下载</a></li>
-		<li><a href="${ctx}/file/download">群组</a></li>
+		<li><a href="${ctx}/group">群组</a></li>
 	</ul>
 	<div class="alert alert-info">
 		一共上传了${total}个文件
