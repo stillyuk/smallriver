@@ -13,7 +13,7 @@ public class Discuss extends IdEntity {
 	private String content;
 	private User user;
 	private Resource resource;
-	private Date date;
+	private Date discussDate;
 
 	public String getContent() {
 		return content;
@@ -43,11 +43,12 @@ public class Discuss extends IdEntity {
 		this.resource = resource;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDiscussDate() {
+		return discussDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDiscussDate(Date discussDate) {
+		this.discussDate = discussDate;
 	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.zucc.graduation.entity.Group;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.repository.UserDao;
 
@@ -84,5 +85,9 @@ public class AccountService {
 
 	public User findUserByLoginName(String loginName) {
 		return userDao.queryByLoginName(loginName);
+	}
+
+	public List<Group> findGroupsByUserId(Long userId) {
+		return userDao.findGroupsByUserId(userId);
 	}
 }

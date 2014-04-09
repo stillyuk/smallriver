@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Resource extends IdEntity {
 	private String name;
 	private User user;
-	private Date date;
+	private Date resourceDate;
 	private int downloadTimes;
 	private String location;
 	private String remark;
@@ -35,12 +35,12 @@ public class Resource extends IdEntity {
 		this.user = user;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getResourceDate() {
+		return resourceDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setResourceDate(Date resourceDate) {
+		this.resourceDate = resourceDate;
 	}
 
 	public int getDownloadTimes() {

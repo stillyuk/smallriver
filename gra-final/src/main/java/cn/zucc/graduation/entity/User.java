@@ -5,19 +5,23 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "ss_user")
+@Table(name = "gra_user")
 public class User extends IdEntity {
 	private String loginName;
 	private String name;
 	private String password;
 	private String roles;
 	private Date registerDate;
+	private List<Group> groups;
 
 	public User() {
 	}
@@ -72,6 +76,16 @@ public class User extends IdEntity {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	@ManyToMany
+	@JoinTable(name = "gra_user_group", joinColumns = { @JoinColumn(name = "users_id") })
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 
 }

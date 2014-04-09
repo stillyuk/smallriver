@@ -47,7 +47,7 @@ public class FileUploadController {
 		Resource resource = new Resource();
 		resource.setName(file.getOriginalFilename());
 		resource.setLocation(location + getCurrentUserLoginName());
-		resource.setDate(new Date());
+		resource.setResourceDate(new Date());
 		resource.setUser(accountService.getUser(getCurrentUserId()));
 		resouceService.saveResource(resource);
 		model.addAttribute("message", "上传成功");
