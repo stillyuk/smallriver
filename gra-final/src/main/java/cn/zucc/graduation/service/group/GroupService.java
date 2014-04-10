@@ -40,4 +40,8 @@ public class GroupService {
 	public List<Group> getAllGroups() {
 		return (List<Group>) groupDao.findAll();
 	}
+
+	public Group findManagerByGroupId(Long groupId) {
+		return groupDao.findOne(groupId);
+	}
 }
