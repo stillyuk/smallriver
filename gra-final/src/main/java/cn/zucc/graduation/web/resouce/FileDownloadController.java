@@ -59,9 +59,4 @@ public class FileDownloadController {
 		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 		return user.getId();
 	}
-
-	private String getCurrentUserLoginName() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.getLoginName();
-	}
 }

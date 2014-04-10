@@ -18,11 +18,15 @@
 			</div>
 			<div class="form-group">
 				<label for="plainPassword" class="control-label">密码:</label>
-				<input type="password" id="plainPassword" name="plainPassword" class="form-control" placeholder="...Leave it blank if no change"/>
+				<input type="password" id="plainPassword" name="plainPassword" class="form-control required"/>
 			</div>
 			<div class="form-group">
-				<label for="confirmPassword" class="control-label">确认密码:</label>
-				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" equalTo="#plainPassword" />
+				<label for="plainPassword" class="control-label">新密码:</label>
+				<input type="password" id="plainPassword" name="password" class="form-control" placeholder="...Leave it blank if no change"/>
+			</div>
+			<div class="form-group">
+				<label for="confirmPassword" class="control-label">确认新密码:</label>
+				<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" equalTo="#password" />
 			</div>
 			<div class="form-group">
 				<input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;	

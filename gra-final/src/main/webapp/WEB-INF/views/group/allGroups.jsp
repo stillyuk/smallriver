@@ -14,15 +14,16 @@
 		<li><a href="${ctx}/file/download">文件下载</a></li>
 		<li class="active"><a href="${ctx}/group">群组</a></li>
 	</ul>
-	<div class="btn-group pull-right">
-		<a class="btn active" href="${ctx}/group/allGroups">查看所有群</a>
-		<a class="btn btn-primary" href="${ctx}/group/create">新建 </a>
-	</div>
 	<div style="height: 50px;"></div>
 	<ul class="list-group">
-		<span class="label label-default">所在群列表</span>
+		<span class="label label-default">所有群列表</span>
 		<c:forEach items="${groups}" var="group">
-			<li class="list-group-item">组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a></li>
+			<li class="list-group-item">
+				<a href="${ctx}/group/joinGroup?groupId=${group.id}">申请加入该群</a>
+				<div class="col-sm-4">
+					组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a>
+				</div>
+			</li>
 		</c:forEach>
 	</ul>
 </body>

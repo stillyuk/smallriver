@@ -30,7 +30,14 @@ public class GroupService {
 	}
 
 	public List<Group> findGroupsByUserId(Long userId) {
-		// TODO Auto-generated method stub
 		return groupDao.findGroupsByUserId(userId);
+	}
+
+	public Group getGroup(Long groupId) {
+		return groupDao.findOne(groupId);
+	}
+
+	public List<Group> getAllGroups() {
+		return (List<Group>) groupDao.findAll();
 	}
 }

@@ -9,6 +9,13 @@
 </script>
 </head>
 <body>
+	<ul class="nav nav-tabs">
+		<li><a href="${ctx}">Home</a></li>
+		<li><a href="${ctx}/file/upload">文件上传</a></li>
+		<li><a href="${ctx}/file/download">文件下载</a></li>
+		<li class="active"><a href="${ctx}/group">群组</a></li>
+	</ul>
+	<div style="height: 50px;"></div>
 	<form id="inputForm" action="${ctx}/group/create" method="post" class="form-horizontal">
 		<fieldset>
 			<legend><small>添加群组</small></legend>

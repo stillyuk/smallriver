@@ -52,7 +52,7 @@ public class AccountService {
 
 	public Page<User> getUserPage(Long userId, int pageNumber, int pageSize, String sortType) {
 		Pageable pageRequest = buildPageRequest(pageNumber, pageSize, sortType);
-		Specification<User> spe = buildSpecification();
+		// Specification<User> spe = buildSpecification();
 		return userDao.findAll(null, pageRequest);
 	}
 
@@ -74,7 +74,7 @@ public class AccountService {
 		return new PageRequest(pageNumber - 1, pagzSize, sort);
 	}
 
-	private Specification<User> buildSpecification() {
+	protected Specification<User> buildSpecification() {
 		Specification<User> spec = new Specification<User>() {
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.get("loginName"), "admin");

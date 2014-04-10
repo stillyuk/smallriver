@@ -11,16 +11,15 @@
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}">Home</a></li>
 		<li><a href="${ctx}/file/upload">文件上传</a></li>
-		<li class="active"><a href="${ctx}/file/download">文件下载</a></li>
-		<li><a href="${ctx}/group">群组</a></li>
+		<li><a href="${ctx}/file/download">文件下载</a></li>
+		<li class="active"><a href="${ctx}/group">群组</a></li>
 	</ul>
 	<button class="btn" onclick="history.back()">返回</button>
 	<ul class="list-group">
-		<li class="list-group-item">文件名：${resource.name}</li>
-		<li class="list-group-item">描述：${resource.remark}</li>
-		<li class="list-group-item">上传日期：${resource.resourceDate}</li>
-		<li class="list-group-item">下载次数：${resource.downloadTimes}</li>
-		<li class="list-group-item"><a href="${ctx}/file/download/${resource.id}">点击下载</a></li>
+		<li class="list-group-item">组名：${group.groupName}</li>
+		<li class="list-group-item">创建时间：${group.createDate}</li>
+		<li class="list-group-item">现在人数：${groupSize}<a href="${ctx}/group/allMembers?groupId=${group.id}">查看所有成员</a></li>
+		<li class="list-group-item">管理员：${group.manager.name}</li>
 	</ul>
 </body>
 </html>
