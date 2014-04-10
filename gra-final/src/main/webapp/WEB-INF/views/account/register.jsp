@@ -5,7 +5,6 @@
 <html>
 <head>
 	<title>用户注册</title>
-	
 	<script>
 		$(function() {
 			$("#loginName").focus();

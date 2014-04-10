@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,6 +20,7 @@ public class Group extends IdEntity {
 	private Date createDate;
 	private List<User> users;
 	private User manager;
+	private List<GroupResource> groupResources;
 
 	@NotBlank
 	public String getGroupName() {
@@ -57,4 +59,13 @@ public class Group extends IdEntity {
 		this.manager = manager;
 	}
 
+	@OneToMany
+	@JoinColumn(name = "groupid")
+	public List<GroupResource> getGroupResources() {
+		return groupResources;
+	}
+
+	public void setGroupResources(List<GroupResource> groupResources) {
+		this.groupResources = groupResources;
+	}
 }

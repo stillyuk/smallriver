@@ -10,10 +10,11 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}">Home</a></li>
-		<li class="active"><a href="#">文件上传</a></li>
+		<li><a href="#">文件上传</a></li>
 		<li><a href="${ctx}/file/download">文件下载</a></li>
-		<li><a href="${ctx}/group">群组</a></li>
+		<li class="active"><a href="${ctx}/group">群组</a></li>
 	</ul>
+	<a class="btn" href="${ctx}/group/create">添加</a>
 	<div class="row">
 		<c:forEach items="${groups}" var="group">
 			<div class="col-xs-6 col-md-3">

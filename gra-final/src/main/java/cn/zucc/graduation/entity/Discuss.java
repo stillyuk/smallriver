@@ -12,7 +12,6 @@ import javax.persistence.Table;
 public class Discuss extends IdEntity {
 	private String content;
 	private User user;
-	private Resource resource;
 	private Date discussDate;
 
 	public String getContent() {
@@ -31,16 +30,6 @@ public class Discuss extends IdEntity {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "resourceId")
-	public Resource getResource() {
-		return resource;
-	}
-
-	public void setResource(Resource resource) {
-		this.resource = resource;
 	}
 
 	public Date getDiscussDate() {

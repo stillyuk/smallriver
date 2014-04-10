@@ -28,4 +28,9 @@ public class GroupService {
 	public List<User> findUsersByGroupId(Long groupId) {
 		return groupDao.findUsersByGroupId(groupId);
 	}
+
+	public List<Group> findGroupsByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return groupDao.findGroupsByUserId(userId);
+	}
 }

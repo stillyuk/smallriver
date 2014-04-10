@@ -12,7 +12,7 @@
 		<li><a href="${ctx}">Home</a></li>
 		<li><a href="${ctx}/file/upload">文件上传</a></li>
 		<li class="active"><a href="${ctx}/file/download">文件下载</a></li>
-		<li><a href="${ctx}/file/download">群组</a></li>
+		<li><a href="${ctx}/group">群组</a></li>
 	</ul>
 	<div class="row">
 		<c:forEach items="${resources}" var="resource">

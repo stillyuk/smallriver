@@ -10,7 +10,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}">Home</a></li>
-		<li class="active"><a href="#">文件上传</a></li>
+		<li class="active"><a href="${ctx}/file/upload">文件上传</a></li>
 		<li><a href="${ctx}/file/download">文件下载</a></li>
 		<li><a href="${ctx}/group">群组</a></li>
 	</ul>
@@ -26,15 +26,14 @@
 	</c:if>
 	<div>
 		<form method="POST" action="upload" enctype="multipart/form-data">
-		<ul class="list-group">
-			<li class="list-group-item">
-				<input type="file" name="file" />
-			</li>
-			<li class="list-group-item">
-				<input type="submit" value="提交" class="btn" />
-			</li>
-		</ul>
-			
+			<ul class="list-group">
+				<li class="list-group-item">
+					<input type="file" name="file" />
+				</li>
+				<li class="list-group-item">
+					<input type="submit" value="提交" class="btn" />
+				</li>
+			</ul>
 		</form>
 	</div>
 </body>
