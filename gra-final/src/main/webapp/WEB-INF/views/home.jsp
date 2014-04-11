@@ -17,7 +17,7 @@
 	<div class="btn-group pull-right">
 		<a class="btn active" href="${ctx}/message/allSendMessages">发送的消息</a>
 		<a class="btn active" href="${ctx}/message/allReceiveMessages">接受的消息</a>
-		<a class="btn btn-primary" href="${ctx}/group/create">发送消息 </a>
+		<a class="btn btn-primary" href="${ctx}/message/sendMessage">发送消息 </a>
 	</div>
 	<div style="height: 50px;"></div>
 	<span class="label label-default">未处理的消息</span>

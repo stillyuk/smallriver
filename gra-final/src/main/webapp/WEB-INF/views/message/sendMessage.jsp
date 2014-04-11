@@ -14,19 +14,35 @@
 		<li><a href="${ctx}/file/download">文件下载</a></li>
 		<li><a href="${ctx}/group">群组</a></li>
 	</ul>
-	<div class="btn-group pull-right">
-		<a class="btn active" href="${ctx}/message/allSendMessages">发送的消息</a>
-		<a class="btn active" href="${ctx}/message/allReceiveMessages">接受的消息</a>
-		<a class="btn active" href="${ctx}/group/create">发送消息 </a>
-		<button class="btn btn-primary" onclick="history.back()">返回</button>
-	</div>
+	
 	<div style="height: 50px;"></div>
-	<c:if test="${not empty messages}">
-		<c:forEach items="${messages}" var="message">
-			<div class="alert alert-info">
-				消息：${message.content}
+	<form id="loginForm" actin="${ctx}/login" method="post" class="form-horizontal" role="form">
+		<c:if test="${not empty message}">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
+					<button class="close" data-dismiss="alert">×</button>
+					${message}
+				</div>
 			</div>
-		</c:forEach>
-	</c:if>
+		</c:if>
+		<div class="btn-group">
+			<div class="col-sm-offset-2 col-sm-4">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					<i class="icon-user"></i>发送到：
+					<span class="caret"></span>
+				</a>
+			
+				<ul class="dropdown-menu">
+					<li><a href="${ctx}/profile">admin</a></li>
+					<li><a href="${ctx}/logout">user</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-4">
+				<input type="submit" class="btn btn-primary" value="发送" />
+			</div>
+		</div>
+	</form>
 </body>
 </html>

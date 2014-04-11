@@ -14,12 +14,17 @@
 		<li><a href="${ctx}/file/download">文件下载</a></li>
 		<li class="active"><a href="${ctx}/group">群组</a></li>
 	</ul>
-	<button class="btn" onclick="history.back()">返回</button>
+	<div class="btn-group pull-right">
+		<a class="btn active" href="${ctx}/group/allGroups">共享文件</a>
+		<a class="btn btn-primary" href="${ctx}/group/create">查看群资源</a>
+	</div>
+	<div style="height: 40px;"></div>
 	<ul class="list-group">
 		<li class="list-group-item">组名：${group.groupName}</li>
 		<li class="list-group-item">创建时间：${group.createDate}</li>
 		<li class="list-group-item">现在人数：${groupSize}<a href="${ctx}/group/allMembers?groupId=${group.id}">查看所有成员</a></li>
 		<li class="list-group-item">管理员：${group.manager.name}</li>
 	</ul>
+	<button class="btn" onclick="history.back()">返回</button>
 </body>
 </html>
