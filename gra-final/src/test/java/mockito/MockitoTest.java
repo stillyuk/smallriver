@@ -2,10 +2,12 @@ package mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import java.util.Iterator;
 
 import org.junit.Test;
 
+@SuppressWarnings("rawtypes")
 public class MockitoTest {
 	@Test
 	public void simpleTest() {

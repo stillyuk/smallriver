@@ -1,5 +1,7 @@
 package jetty;
 
+import java.io.File;
+
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -7,7 +9,6 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.toolchain.test.MavenTestingUtils;
 import org.eclipse.jetty.util.resource.Resource;
 
 public class SplitFileServer {
@@ -23,13 +24,13 @@ public class SplitFileServer {
 		context0.setContextPath("/");
 		ResourceHandler rh0 = new ResourceHandler();
 		rh0.setDirectoriesListed(true);
-		rh0.setBaseResource(Resource.newResource(MavenTestingUtils.getTestResourceDir("dir0")));
+		rh0.setBaseResource(Resource.newResource(new File("")));
 		context0.setHandler(rh0);
 
 		ContextHandler context1 = new ContextHandler();
 		context1.setContextPath("/");
 		ResourceHandler rh1 = new ResourceHandler();
-		rh1.setBaseResource(Resource.newResource(MavenTestingUtils.getTestResourceDir("dir1")));
+		rh1.setBaseResource(Resource.newResource(new File("")));
 		context1.setHandler(rh1);
 
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
