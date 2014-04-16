@@ -23,7 +23,7 @@
 				<td><a href="${ctx}/admin/user/update/${user.id}">${user.loginName}</a></td>
 				<td>${user.name}</td>
 				<td>
-					<fmt:formatDate value="${user.registerDate}" pattern="yyyy年MM月dd日  HH时mm分ss秒" />
+					<fmt:formatDate value="${user.registerDate}" pattern="yyyy年MM月dd日 " />
 				</td>
 				<td><a href="${ctx}/admin/user/delete/${user.id}">删除</a></td>
 			</tr>
