@@ -3,6 +3,7 @@ package cn.zucc.graduation.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ public class GroupResource extends IdEntity {
 	private Date uploadDate;
 	private User uploadUser;
 	private int downloadTimes;
+	private String location;
 	private List<Discuss> discusses;
 	private Group group;
 
@@ -56,7 +58,15 @@ public class GroupResource extends IdEntity {
 		this.downloadTimes = downloadTimes;
 	}
 
-	@OneToMany
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "resouceid")
 	public List<Discuss> getDiscusses() {
 		return discusses;

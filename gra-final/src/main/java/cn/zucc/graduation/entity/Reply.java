@@ -3,21 +3,16 @@ package cn.zucc.graduation.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
-@Table(name = "gra_discuss")
-public class Discuss extends IdEntity {
+@Table(name = "gra_reply")
+public class Reply extends IdEntity {
 	private String content;
 	private User user;
-	private Date discussDate;
-	
+	private Discuss discuss;
+	private Date replyDate;
 
-	@NotBlank
 	public String getContent() {
 		return content;
 	}
@@ -26,8 +21,6 @@ public class Discuss extends IdEntity {
 		this.content = content;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "userId")
 	public User getUser() {
 		return user;
 	}
@@ -36,12 +29,19 @@ public class Discuss extends IdEntity {
 		this.user = user;
 	}
 
-	public Date getDiscussDate() {
-		return discussDate;
+	public Discuss getDiscuss() {
+		return discuss;
 	}
 
-	public void setDiscussDate(Date discussDate) {
-		this.discussDate = discussDate;
+	public void setDiscuss(Discuss discuss) {
+		this.discuss = discuss;
 	}
 
+	public Date getReplyDate() {
+		return replyDate;
+	}
+
+	public void setReplyDate(Date replyDate) {
+		this.replyDate = replyDate;
+	}
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>首页</title>
+<title>group</title>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -33,26 +33,29 @@
 			</form>
 		</div>
 	</nav>
-
-	<div class="btn-group pull-right">
-		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-			消息 <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<li><a class="btn" href="${ctx}/message/allSendMessages">发送的消息</a></li>
-			<li><a class="btn" href="${ctx}/message/allReceiveMessages">接受的消息</a></li>
-			<li><a class="btn" href="${ctx}/message/sendMessage">发送消息 </a></li>
-		</ul>
-	</div>
-	<div style="height: 50px;"></div>
-	<span class="label label-default">未处理的消息</span>
-	<c:if test="${not empty messages}">
-		<c:forEach items="${messages}" var="message">
-			<div class="alert alert-info">
-				<button class="close" data-dismiss="alert" onclick="location.href='${ctx}/message/updateState?messageId=${message.id}'">×</button>
-				消息：${message.content}
-			</div>
+	
+	<ul class="list-group">
+		<span class="label label-default">群资源</span>
+		<li class="list-group-item">资源名：${groupResource.name}</li>
+		<li class="list-group-item">下载次数：${groupResource.downloadTimes}</li>
+		<li class="list-group-item">上传用户：${groupResource.uploadUser.loginName}</li>
+		<li class="list-group-item">上传时间：${groupResource.uploadDate}</li>
+		<li class="list-group-item">下载资源：<a href="#">点击下载</a></li>
+		<li class="list-group-item">评论：</li>
+		<c:forEach items="${groupResource.discusses}" var="discuss">
+			<li class="list-group-item">
+				<a href="#">${discuss.user.loginName}</a>: ${discuss.content}<a href="#">回复</a> <a>赞()</a>
+			</li>
 		</c:forEach>
-	</c:if>
+		<li class="list-group-item">
+			<form action="${ctx}/group/addDiscuss" class="form-horizontal" role="form">
+				<div class="form-group">
+					<input type="hidden" name="groupResourceId" value="${groupResource.id}" />
+					<input type="text" name="discuss" class="form-control" />
+					<input class="btn btn-primary" type="submit" value="添加评论" />
+				</div>
+			</form>
+		</li>
+	</ul>
 </body>
 </html>

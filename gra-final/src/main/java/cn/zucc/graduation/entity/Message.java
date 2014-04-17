@@ -16,7 +16,7 @@ public class Message extends IdEntity {
 	private User to;
 	private String content;
 	private Date messageDate;
-	private Boolean isRead;
+	private Boolean isRead = true;
 
 	@ManyToOne
 	@JoinColumn(name = "from_user")

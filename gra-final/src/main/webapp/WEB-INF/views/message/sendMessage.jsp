@@ -25,19 +25,17 @@
 				</div>
 			</div>
 		</c:if>
-		<div class="btn-group">
 			<div class="col-sm-offset-2 col-sm-4">
+				发送到：
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					<i class="icon-user"></i>发送到：
+					<i class="icon-user"></i>选择用户
 					<span class="caret"></span>
 				</a>
-			
 				<ul class="dropdown-menu">
 					<li><a href="${ctx}/profile">admin</a></li>
 					<li><a href="${ctx}/logout">user</a></li>
 				</ul>
 			</div>
-		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-4">
 				<input type="submit" class="btn btn-primary" value="发送" />

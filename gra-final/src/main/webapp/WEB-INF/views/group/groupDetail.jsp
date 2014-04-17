@@ -15,8 +15,8 @@
 		<li class="active"><a href="${ctx}/group">群组</a></li>
 	</ul>
 	<div class="btn-group pull-right">
-		<a class="btn active" href="${ctx}/group/allGroups">共享文件</a>
-		<a class="btn btn-primary" href="${ctx}/group/create">查看群资源</a>
+		<a class="btn active" href="${ctx}/group/shareResource?groupId=${group.id}">共享资源</a>
+		<a class="btn btn-primary" href="${ctx}/group/listGroupResource?groupId=${group.id}">查看群资源</a>
 	</div>
 	<div style="height: 40px;"></div>
 	<ul class="list-group">

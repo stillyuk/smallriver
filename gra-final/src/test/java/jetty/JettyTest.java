@@ -11,7 +11,6 @@ public class JettyTest {
 		try {
 			server.start();
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

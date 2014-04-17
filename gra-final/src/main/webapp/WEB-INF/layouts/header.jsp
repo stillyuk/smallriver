@@ -4,7 +4,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <div id="header">
 	<div id="title">
-	    <h1><a href="${ctx}">浙江大学城市学院</a><small>--资源管理系统</small>
+	    <h1><a href="${ctx}">浙江大学城市学院</a><small>&nbsp;资源管理系统</small>
 	    <shiro:user>
 			<div class="btn-group pull-right">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
