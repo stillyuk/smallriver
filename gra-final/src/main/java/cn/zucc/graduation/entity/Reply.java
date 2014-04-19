@@ -3,6 +3,8 @@ package cn.zucc.graduation.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,7 +12,6 @@ import javax.persistence.Table;
 public class Reply extends IdEntity {
 	private String content;
 	private User user;
-	private Discuss discuss;
 	private Date replyDate;
 
 	public String getContent() {
@@ -21,20 +22,14 @@ public class Reply extends IdEntity {
 		this.content = content;
 	}
 
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Discuss getDiscuss() {
-		return discuss;
-	}
-
-	public void setDiscuss(Discuss discuss) {
-		this.discuss = discuss;
 	}
 
 	public Date getReplyDate() {
