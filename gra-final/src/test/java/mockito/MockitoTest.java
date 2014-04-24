@@ -10,16 +10,11 @@ import org.junit.Test;
 @SuppressWarnings("rawtypes")
 public class MockitoTest {
 	@Test
-	public void simpleTest() {
-		// arrange
+	public void testSimple() {
 		Iterator i = mock(Iterator.class);
 		when(i.next()).thenReturn("Hello").thenReturn("World");
-		// act
 		String result = i.next() + " " + i.next();
-		// verify
 		verify(i, times(2)).next();
-		// assert
 		assertEquals("Hello World", result);
 	}
-
 }
