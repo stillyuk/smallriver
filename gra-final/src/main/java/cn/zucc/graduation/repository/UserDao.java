@@ -19,4 +19,6 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
 	@Modifying
 	@Query("select g from Group g join g.users u where u.id=?1")
 	public List<Group> findGroupsByUserId(Long userId);
+
+//	public List<User> search(String content);
 }

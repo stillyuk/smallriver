@@ -25,9 +25,9 @@
 				<li><a href="${ctx}/file/download">文件下载</a></li>
 				<li><a href="${ctx}/group">群组</a></li>
 			</ul>
-			<form class="navbar-form navbar-left" role="search">
+			<form class="navbar-form navbar-left" role="search" action="${ctx}/search">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" name="content" class="form-control" placeholder="Search">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>

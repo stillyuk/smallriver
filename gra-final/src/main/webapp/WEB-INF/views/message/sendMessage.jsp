@@ -6,6 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
+<script type="text/javascript">
+	function test(t) {
+		$("#choiceUser").text($(t).text());
+		$("#toUser").val($(t).text());
+	}
+</script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -16,7 +22,7 @@
 	</ul>
 	
 	<div style="height: 50px;"></div>
-	<form id="loginForm" actin="${ctx}/login" method="post" class="form-horizontal" role="form">
+	<form id="loginForm" action="${ctx}/message/doSendMessage" method="post" class="form-horizontal" role="form">
 		<c:if test="${not empty message}">
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
@@ -25,17 +31,26 @@
 				</div>
 			</div>
 		</c:if>
+		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-4">
 				发送到：
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					<i class="icon-user"></i>选择用户
+					<i class="icon-user"></i><span id="choiceUser">选择用户</span>
 					<span class="caret"></span>
 				</a>
+				<input id="toUser" name="toUser" type="hidden" value="" />
 				<ul class="dropdown-menu">
-					<li><a href="${ctx}/profile">admin</a></li>
-					<li><a href="${ctx}/logout">user</a></li>
+					<c:forEach items="${friends}" var="friend">
+						<li onclick="test(this);"><a href="#">${friend.to.loginName}</a></li>
+					</c:forEach>
 				</ul>
 			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-4">
+				<input id="message" name="message" type="text" class="form-control required" />
+			</div>
+		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-4">
 				<input type="submit" class="btn btn-primary" value="发送" />

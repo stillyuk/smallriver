@@ -15,10 +15,14 @@
 		<li><a href="${ctx}/group">群组</a></li>
 	</ul>
 	<div class="btn-group pull-right">
-		<a class="btn active" href="${ctx}/message/allSendMessages">发送的消息</a>
-		<a class="btn active" href="${ctx}/message/allReceiveMessages">接受的消息</a>
-		<a class="btn active" href="${ctx}/group/create">发送消息 </a>
-		<button class="btn btn-primary" onclick="history.back()">返回</button>
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+			消息 <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a class="btn" href="${ctx}/message/allSendMessages">发送的消息</a></li>
+			<li><a class="btn" href="${ctx}/message/allReceiveMessages">接受的消息</a></li>
+			<li><a class="btn" href="${ctx}/message/sendMessage">发送消息 </a></li>
+		</ul>
 	</div>
 	<div style="height: 50px;"></div>
 	<c:if test="${not empty messages}">

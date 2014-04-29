@@ -2,9 +2,14 @@ package cn.zucc.graduation.service.group;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import cn.zucc.graduation.entity.Group;
@@ -43,5 +48,21 @@ public class GroupService {
 
 	public Group findManagerByGroupId(Long groupId) {
 		return groupDao.findOne(groupId);
+	}
+
+	protected Specification<Group> buildSpecification(final String name) {
+		Specification<Group> spec = new Specification<Group>() {
+			public Predicate toPredicate(Root<Group> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				query.where(cb.like(root.<String> get("groupName"), "%" + name + "%"));
+				return query.getGroupRestriction();
+			}
+		};
+		return spec;
+	}
+
+	public List<Group> search(String group) {
+		Specification<Group> spec = buildSpecification(group);
+		List<Group> groups = groupDao.findAll(spec);
+		return groups;
 	}
 }

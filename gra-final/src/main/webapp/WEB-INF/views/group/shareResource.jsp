@@ -26,7 +26,7 @@
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" class="form-control" placeholder="Search" action="${ctx}/search">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>

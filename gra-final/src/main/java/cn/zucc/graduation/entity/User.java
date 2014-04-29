@@ -88,4 +88,7 @@ public class User extends IdEntity {
 		this.groups = groups;
 	}
 
+	public String toString() {
+		return loginName;
+	}
 }

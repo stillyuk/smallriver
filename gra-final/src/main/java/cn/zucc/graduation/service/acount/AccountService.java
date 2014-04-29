@@ -74,10 +74,11 @@ public class AccountService {
 		return new PageRequest(pageNumber - 1, pagzSize, sort);
 	}
 
-	protected Specification<User> buildSpecification() {
+	protected Specification<User> buildSpecification(final String name) {
 		Specification<User> spec = new Specification<User>() {
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				return cb.equal(root.get("loginName"), "admin");
+				query.where(cb.like(root.<String> get("name"), "%" + name + "%"));
+				return query.getGroupRestriction();
 			}
 		};
 		return spec;
@@ -89,5 +90,11 @@ public class AccountService {
 
 	public List<Group> findGroupsByUserId(Long userId) {
 		return userDao.findGroupsByUserId(userId);
+	}
+
+	public List<User> search(String content) {
+		Specification<User> spec = buildSpecification(content);
+		List<User> users = userDao.findAll(spec);
+		return users;
 	}
 }
