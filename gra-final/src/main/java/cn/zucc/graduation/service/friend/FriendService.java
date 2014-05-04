@@ -19,4 +19,16 @@ public class FriendService {
 	public List<Friend> findFriendsByUserId(Long userId) {
 		return friendDao.findFriendsByUserId(userId);
 	}
+
+	public Friend save(Friend friend) {
+		return friendDao.save(friend);
+	}
+
+	public Boolean isFriendQuerybyFromAndTo(Long fromUserId, Long toUserId) {
+		List<Friend> friends = friendDao.querybyFromAndTo(fromUserId, toUserId);
+		if (friends != null && friends.size() != 0) {
+			return true;
+		}
+		return false;
+	}
 }

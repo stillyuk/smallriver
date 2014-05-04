@@ -77,7 +77,7 @@ public class AccountService {
 	protected Specification<User> buildSpecification(final String name) {
 		Specification<User> spec = new Specification<User>() {
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				query.where(cb.like(root.<String> get("name"), "%" + name + "%"));
+				query.where(cb.like(root.<String> get("loginName"), "%" + name + "%"));
 				return query.getGroupRestriction();
 			}
 		};

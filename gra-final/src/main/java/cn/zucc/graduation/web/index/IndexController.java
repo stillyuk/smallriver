@@ -37,6 +37,7 @@ public class IndexController {
 
 	@RequestMapping("search")
 	public String search(String content, Model model) {
+		model.addAttribute("content", content);
 		List<User> users = accountService.search(content.trim());
 		List<Group> groups = groupService.search(content.trim());
 		model.addAttribute("users", users);

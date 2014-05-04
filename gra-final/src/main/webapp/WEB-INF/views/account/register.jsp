@@ -54,7 +54,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-3">
-					<input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;	
+					<input id="submit_btn" class="btn btn-primary" type="submit" value="提交"/>&nbsp;
 					<input id="cancel_btn" class="btn" type="button" value="返回" onclick="history.back()"/>
 				</div>
 			</div>
