@@ -1,0 +1,31 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录</title>
+<script>
+	
+</script>
+</head>
+<body>
+
+	<ul class="list-group">
+		<li class="list-group-item">登陆名：${user.loginName }</li>
+		<li class="list-group-item">用户名称：${user.name }</li>
+		<li class="list-group-item">注册时间：
+			<fmt:formatDate value="${user.registerDate }" pattern="yyyy年MM月dd日" /></li>
+		<li class="list-group-item">
+			<c:if test="${isFriend}">
+				<a href="${ctx}/user/add?toId=${user.id}">已经是好友啦，开始聊天</a>
+			</c:if>
+			<c:if test="${!isFriend}">
+				<a href="${ctx}/user/add?toId=${user.id}">添加好友</a>
+			</c:if>
+		</li>
+	</ul>
+</body>
+</html>
