@@ -12,7 +12,13 @@
 </script>
 </head>
 <body>
-
+	<c:if test="${not empty message}">
+		<div class="alert alert-danger">
+			<button class="close" data-dismiss="alert">×</button>
+			${message}
+		</div>
+	</c:if>
+<!-- 	<div style="height:50px;"></div> -->
 	<ul class="list-group">
 		<li class="list-group-item">登陆名：${user.loginName }</li>
 		<li class="list-group-item">用户名称：${user.name }</li>

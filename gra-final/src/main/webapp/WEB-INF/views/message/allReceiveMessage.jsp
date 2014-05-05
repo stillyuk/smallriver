@@ -8,22 +8,21 @@
 <title>首页</title>
 </head>
 <body>
- 	<div style="float:left; width:200px;">
+	<div style="float:left; width:200px;">
 		<ul class="nav nav-pills nav-stacked">
-	 		<li class="active"><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a></li>
+	 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
 			<li><a href="${ctx}/message/allSendMessages">所有发送的消息</a></li>
-			<li><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
+			<li class="active"><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
 			<li><a href="${ctx}/message/sendMessage">发送消息</a></li>
 		</ul>
 	</div>
 	<div style="float:right; width:300px;">
 		<c:if test="${not empty messages}">
+			<ul class="list-group">
 			<c:forEach items="${messages}" var="message">
-				<div class="alert alert-info">
-					<button class="close" data-dismiss="alert" onclick="location.href='${ctx}/message/updateState?messageId=${message.id}'">×</button>
-					消息：<a href="${ctx}/message/detail?messageId=${message.id}">${message.content}</a>
-				</div>
+				<li class="list-group-item">${message.content}</li>
 			</c:forEach>
+			</ul>
 		</c:if>
 	</div>
 	<div style="clear:both;"></div>

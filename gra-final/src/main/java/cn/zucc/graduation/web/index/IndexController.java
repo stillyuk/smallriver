@@ -32,6 +32,7 @@ public class IndexController {
 	public String index(Model model) {
 		List<Message> messages = messageService.findMessagesByReceiveIdAndUnRead(getCurrentUserId());
 		model.addAttribute("messages", messages);
+		model.addAttribute("size", messages.size());
 		return "home";
 	}
 

@@ -1,14 +1,18 @@
 package cn.zucc.graduation.web.account;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.zucc.graduation.entity.Friend;
+import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
 import cn.zucc.graduation.service.friend.FriendService;
+import cn.zucc.graduation.service.message.MessageService;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 /**
@@ -24,8 +28,11 @@ public class UserController {
 	@Autowired
 	private FriendService friendService;
 
+	@Autowired
+	private MessageService messageService;
+
 	@RequestMapping("info")
-	public String userInfo(Long userId, Model model) {
+	public String userInfo(@RequestParam("userId") Long userId, Model model) {
 		User user = accountService.getUser(userId);
 		Boolean isFriend = friendService.isFriendQuerybyFromAndTo(ShiroUserUtil.getCurrentUserId(), userId);
 		model.addAttribute("user", user);
@@ -36,13 +43,17 @@ public class UserController {
 	@RequestMapping("add")
 	public String add(Long toId, Model model) {
 		Long userId = ShiroUserUtil.getCurrentUserId();
-		User from = new User(userId);
-		User to = new User(toId);
-		Friend friend = new Friend();
-		friend.setFrom(from);
-		friend.setTo(to);
-		friendService.save(friend);
-		model.addAttribute("message", "ok");
+		User user = accountService.getUser(userId);
+		Boolean isFriend = friendService.isFriendQuerybyFromAndTo(userId, toId);
+		Message message = new Message();
+		message.setContent(user.getLoginName() + "请求添加您为好友");
+		message.setFrom(user);
+		message.setTo(accountService.getUser(toId));
+		message.setMessageDate(new Date());
+		messageService.save(message);
+		model.addAttribute("user", user);
+		model.addAttribute("isFriend", isFriend);
+		model.addAttribute("message", "请求已发送");
 		return "account/userInfo";
 	}
 }

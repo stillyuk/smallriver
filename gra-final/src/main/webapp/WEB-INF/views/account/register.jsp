@@ -25,9 +25,16 @@
 </head>
 
 <body>
+	<ol class="breadcrumb">
+		<li>注册</li>
+		<li class="active">激活</li>
+	</ol>
 	<form id="inputForm" action="${ctx}/register" method="post" class="form-horizontal">
 		<fieldset>
+			<div class="col-sm-12">
 			<legend><small>用户注册</small></legend>
+			</div>
+			
 			<div class="form-group">
 				<label for="loginName" class="col-sm-2 control-label">登录名：</label>
 				<div class="col-sm-4">
@@ -38,6 +45,12 @@
 				<label for="name" class="col-sm-2 control-label">用户名:</label>
 				<div class="col-sm-4">
 					<input type="text" id="name" name="name" class="form-control required"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">邮箱:</label>
+				<div class="col-sm-4">
+					<input type="text" id="email" name="email" class="form-control required email"/>
 				</div>
 			</div>
 			<div class="form-group">

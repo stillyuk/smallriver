@@ -3,7 +3,6 @@ package cn.zucc.graduation.web.message;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +13,15 @@ import cn.zucc.graduation.entity.Friend;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
-import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.friend.FriendService;
 import cn.zucc.graduation.service.message.MessageService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 @RequestMapping("/message")
 public class MessageController {
 	@Autowired
 	private MessageService messageService;
-
 	@Autowired
 	private FriendService friendService;
 	@Autowired
@@ -31,7 +29,7 @@ public class MessageController {
 
 	@RequestMapping(value = "sendMessage", method = RequestMethod.GET)
 	public String sendMessage(Model model) {
-		List<Friend> friends = friendService.findFriendsByUserId(getCurrentUserId());
+		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("friends", friends);
 		return "message/sendMessage";
 	}
@@ -40,11 +38,11 @@ public class MessageController {
 	public String doSendMessage(String message, String toUser, Model model) {
 		Message msg = new Message();
 		msg.setContent(message);
-		msg.setFrom(new User(getCurrentUserId()));
+		msg.setFrom(new User(ShiroUserUtil.getCurrentUserId()));
 		msg.setTo(new User(accountService.queryByLoginName(toUser).getId()));
 		msg.setMessageDate(new Date());
 		messageService.save(msg);
-		List<Friend> friends = friendService.findFriendsByUserId(getCurrentUserId());
+		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("message", "发送成功");
 		model.addAttribute("friends", friends);
 		return "message/sendMessage";
@@ -55,25 +53,28 @@ public class MessageController {
 		Message message = messageService.getMessage(messageId);
 		message.setIsRead(true);
 		messageService.update(message);
-		return "/index";
+		return "home";
 	}
 
 	@RequestMapping(value = "allReceiveMessages", method = RequestMethod.GET)
 	public String allReceiveMessages(Model model) {
-		List<Message> messages = messageService.getMessagesByReceiveId(getCurrentUserId());
+		List<Message> messages = messageService.getMessagesByReceiveId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("messages", messages);
-		return "message/allMessage";
+		return "message/allReceiveMessage";
 	}
 
 	@RequestMapping(value = "allSendMessages", method = RequestMethod.GET)
 	public String allSendMessages(Model model) {
-		List<Message> messages = messageService.getMessagesBySendId(getCurrentUserId());
+		List<Message> messages = messageService.getMessagesBySendId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("messages", messages);
-		return "message/allMessage";
+		return "message/allSendMessage";
 	}
 
-	private Long getCurrentUserId() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.getId();
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String detail(Long messageId, Model model) {
+		Message message = messageService.getMessage(messageId);
+		model.addAttribute("message", message);
+		return "message/messageDetail";
 	}
+
 }

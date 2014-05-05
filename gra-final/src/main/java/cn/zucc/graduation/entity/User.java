@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -19,6 +21,7 @@ public class User extends IdEntity {
 	private String loginName;
 	private String name;
 	private String password;
+	private String email;
 	private String roles;
 	private Date registerDate;
 	private List<Group> groups;
@@ -31,6 +34,7 @@ public class User extends IdEntity {
 	}
 
 	@NotBlank
+	@Column(name = "loginName", unique = true)
 	public String getLoginName() {
 		return loginName;
 	}
@@ -55,6 +59,15 @@ public class User extends IdEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Email
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getRoles() {
