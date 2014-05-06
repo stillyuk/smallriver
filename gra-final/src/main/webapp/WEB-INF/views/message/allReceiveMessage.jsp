@@ -20,7 +20,7 @@
 		<c:if test="${not empty messages}">
 			<ul class="list-group">
 			<c:forEach items="${messages}" var="message">
-				<li class="list-group-item">${message.content}</li>
+				<li class="list-group-item"><a href="${ctx}/message/detail?messageId=${message.id}">${message.content}</a></li>
 			</c:forEach>
 			</ul>
 		</c:if>

@@ -12,7 +12,7 @@
 	<ul class="list-group">
 		<li class="list-group-item">人数：${groupSize}</li>
 		<c:forEach items="${users}" var="user">
-			<li class="list-group-item">名称：${user.name}</li>
+			<li class="list-group-item">名称：<a href="${ctx}/user/info?userId=${user.id}">${user.loginName}</a></li>
 		</c:forEach>
 	</ul>
 </body>

@@ -8,10 +8,21 @@
 <title>首页</title>
 <script type="text/javascript">
 	function reply(e) {
-		console.info();
 		$.ajax({
 			type : "POST",
 			url : "${ctx}/friend/handler",
+			data : {
+				"choice" : $(e).val(),
+				"toId" : "${message.from.id}",
+				"messageId" : "${message.id}"
+			}
+		});
+		location.reload();
+	}
+	function replyAddGroup(e) {
+		$.ajax({
+			type : "POST",
+			url : "${ctx}/group/handler",
 			data : {
 				"choice" : $(e).val(),
 				"toId" : "${message.from.id}",
@@ -36,10 +47,18 @@
 			</div>
 		</c:if>
 		<c:if test="${!message.isRead}">
-			<li class="list-group-item">
-				<button class="btn" value="yes" onclick="reply(this)">同意</button>
-				<button class="btn" value="no" onclick="reply(this)">拒绝</button>
-			</li>
+			<c:if test="${message.messageToType eq 'friend'}">
+				<li class="list-group-item">
+					<button class="btn" value="yes" onclick="reply(this)">同意添加好友</button>
+					<button class="btn" value="no" onclick="reply(this)">拒绝</button>
+				</li>
+			</c:if>
+			<c:if test="${message.messageToType eq 'group'}">
+				<li class="list-group-item">
+					<button class="btn" value="yes" onclick="replyAddGroup(this)">同意添加到群组</button>
+					<button class="btn" value="no" onclick="replyAddGroup(this)">拒绝</button>
+				</li>
+			</c:if>
 		</c:if>
 	</ul>
 </body>

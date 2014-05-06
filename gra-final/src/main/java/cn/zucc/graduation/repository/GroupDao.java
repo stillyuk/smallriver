@@ -26,4 +26,6 @@ public interface GroupDao extends PagingAndSortingRepository<Group, Long>, JpaSp
 	@Modifying
 	@Query("select g from Group g join fetch g.users u where g.id=?1 and u.id=?2")
 	public List<Group> isGroupMemberQueryByUserId(Long groupId, Long currentUserId);
+
+	public List<Group> getGroupByGroupName(String groupName);
 }

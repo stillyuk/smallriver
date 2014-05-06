@@ -8,6 +8,15 @@
 <title>group</title>
 </head>
 <body>
+	<c:if test="${not empty message}">
+		<div class="form-group">
+			<div class="col-sm-offset-1 col-sm-6 alert alert-info">
+				<button class="close" data-dismiss="alert">×</button>
+				${message}
+			</div>
+		</div>
+	</c:if>
+	<div style="clear:both;"></div>
 	<div class="btn-group pull-right">
 		<a class="btn active" href="${ctx}/group/allGroups">查看所有群</a>
 		<a class="btn btn-primary" href="${ctx}/group/create">新建 </a>

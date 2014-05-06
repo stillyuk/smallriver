@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.zucc.graduation.entity.GroupResource;
 import cn.zucc.graduation.entity.Resource;
 import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
+import cn.zucc.graduation.service.groupresource.GroupResourceService;
 import cn.zucc.graduation.service.resource.ResouceService;
 
 @Controller
@@ -26,6 +28,9 @@ public class FileDownloadController {
 
 	@Autowired
 	private ResouceService resouceService;
+	
+	@Autowired
+	private GroupResourceService groupResourceService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
@@ -52,6 +57,18 @@ public class FileDownloadController {
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.setContentDispositionFormData("attachment", resource.getName());
 		String filePath = resource.getLocation() + "/" + resource.getName();
+		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(filePath)), headers, HttpStatus.CREATED);
+	}
+
+	@RequestMapping(value = "/groupResource/{groupResourceId}")
+	public ResponseEntity<byte[]> downloadGroupResource(@PathVariable("groupResourceId") Long groupResourceId) throws Exception {
+		GroupResource groupResource = groupResourceService.getGroupResource(groupResourceId);
+		groupResource.setDownloadTimes(groupResource.getDownloadTimes() + 1);
+		groupResourceService.save(groupResource);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.setContentDispositionFormData("attachment", groupResource.getName());
+		String filePath = groupResource.getLocation() + "/" + groupResource.getName();
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(filePath)), headers, HttpStatus.CREATED);
 	}
 

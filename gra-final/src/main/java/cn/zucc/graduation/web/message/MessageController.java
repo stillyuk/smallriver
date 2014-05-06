@@ -47,7 +47,8 @@ public class MessageController {
 		msg.setFrom(new User(ShiroUserUtil.getCurrentUserId()));
 		msg.setTo(new User(accountService.queryByLoginName(toUser).getId()));
 		msg.setMessageDate(new Date());
-		msg.setMessageType(MessageType.CHAT);
+		msg.setMessageFromType(MessageType.CHAT);
+		msg.setMessageToType(MessageType.CHAT);
 		messageService.save(msg);
 		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("message", "发送成功");

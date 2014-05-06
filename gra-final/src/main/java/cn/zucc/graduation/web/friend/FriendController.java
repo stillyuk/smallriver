@@ -4,12 +4,14 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.zucc.graduation.core.MessageType;
 import cn.zucc.graduation.entity.Friend;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
+import cn.zucc.graduation.service.acount.AccountService;
 import cn.zucc.graduation.service.friend.FriendService;
 import cn.zucc.graduation.service.message.MessageService;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
@@ -25,28 +27,39 @@ public class FriendController {
 	private FriendService friendService;
 
 	@Autowired
+	private AccountService accountService;
+
+	@Autowired
 	private MessageService messageService;
 
 	@RequestMapping("/handler")
-	public String handlerRequest(Long toId, String choice, Long messageId) {
+	public String handlerRequest(Long toId, String choice, Long messageId, Model model) {
 		if (choice.equals("yes")) {
 			Long userId = ShiroUserUtil.getCurrentUserId();
-			User from = new User(userId);
+			User from = accountService.getUser(userId);
 			User to = new User(toId);
 			Friend friend = new Friend();
 			friend.setFrom(from);
 			friend.setTo(to);
+			friendService.save(friend);
+			friend = new Friend();
+			friend.setFrom(to);
+			friend.setTo(from);
 			friendService.save(friend);
 			Message message = new Message();
 			message.setFrom(from);
 			message.setTo(to);
 			message.setMessageDate(new Date());
 			message.setContent(from.getLoginName() + "同意添加你为好友");
-			message.setMessageType(MessageType.SYSTEM);
+			message.setMessageFromType(MessageType.SYSTEM);
+			message.setMessageToType(MessageType.ADD_FRIEND);
+			messageService.save(message);
 		}
 		Message message = messageService.getMessage(messageId);
 		message.setIsRead(true);
 		messageService.save(message);
-		return "";
+		message = messageService.getMessage(messageId);
+		model.addAttribute("message", message);
+		return "message/messageDetail";
 	}
 }

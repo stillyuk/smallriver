@@ -73,4 +73,12 @@ public class GroupService {
 		}
 		return true;
 	}
+
+	public Group getGroupByGroupName(String groupName) {
+		List<Group> groups = groupDao.getGroupByGroupName(groupName);
+		if (groups != null && groups.size() > 0) {
+			return groups.get(0);
+		}
+		return null;
+	}
 }

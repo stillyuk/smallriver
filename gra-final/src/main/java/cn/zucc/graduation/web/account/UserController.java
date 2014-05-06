@@ -52,7 +52,8 @@ public class UserController {
 		User to = accountService.getUser(toId);
 		message.setTo(to);
 		message.setMessageDate(new Date());
-		message.setMessageType(MessageType.SYSTEM);
+		message.setMessageFromType(MessageType.SYSTEM);
+		message.setMessageToType(MessageType.ADD_FRIEND);
 		messageService.save(message);
 		model.addAttribute("user", to);
 		model.addAttribute("isFriend", isFriend);

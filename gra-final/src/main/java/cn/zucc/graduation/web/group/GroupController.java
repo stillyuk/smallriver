@@ -54,7 +54,9 @@ public class GroupController {
 		group.setCreateDate(new Date());
 		group.setUsers(Arrays.asList(user));
 		groupService.save(group);
-		model.addAttribute("message", "组" + group.getGroupName() + "创建成功");
+		model.addAttribute("message", "群组" + group.getGroupName() + "创建成功");
+		List<Group> groups = groupService.findGroupsByUserId(userId);
+		model.addAttribute("groups", groups);
 		return "group/groupList";
 	}
 

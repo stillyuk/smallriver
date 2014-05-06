@@ -2,13 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<div id="header navbar">
-	<div id="title" class="header-inner">
+<div id="header">
+	<div id="title">
 		<shiro:notAuthenticated>
 			<h1><a href="${ctx}">浙江大学城市学院</a><small>&nbsp;资源管理系统</small>
 		</shiro:notAuthenticated>
 	    <shiro:user>
-		    <nav class="navbar navbar-default navbar-fixed-top">
+		    <nav class="navbar navbar-default">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="icon-bar"></span>

@@ -19,12 +19,12 @@ function replyTo(e) {
 		<li class="list-group-item">下载次数：${groupResource.downloadTimes}</li>
 		<li class="list-group-item">上传用户：${groupResource.uploadUser.loginName}</li>
 		<li class="list-group-item">上传时间：${groupResource.uploadDate}</li>
-		<li class="list-group-item">下载资源：<a href="#">点击下载</a></li>
+		<li class="list-group-item">下载资源：<a href="${ctx}/file/download/groupResource/${groupResource.id}">点击下载</a></li>
 		<li class="list-group-item">评论：</li>
 		<c:forEach items="${groupResource.discusses}" var="discuss">
 			<li class="list-group-item">
 				<a href="#">${discuss.user.loginName}</a>：
-				<c:if test="${not empty discuss.replyTo}">回复<a href="#">@${discuss.replyTo.loginName}:</a></c:if>${discuss.content}
+				<c:if test="${not empty discuss.replyTo}">回复<a href="${ctx}/user/info?userId=${discuss.replyTo.id}">@${discuss.replyTo.loginName}:</a></c:if>${discuss.content}
 				<button onclick="replyTo(this)" value="a">回复</button>
 			</li>
 		</c:forEach>

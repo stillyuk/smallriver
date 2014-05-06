@@ -16,7 +16,8 @@ public class Message extends IdEntity {
 	private User to;
 	private String content;
 	private Date messageDate;
-	private String messageType;
+	private String messageFromType;
+	private String messageToType;
 	private Boolean isRead = false;
 
 	@ManyToOne
@@ -56,12 +57,20 @@ public class Message extends IdEntity {
 		this.messageDate = messageDate;
 	}
 
-	public String getMessageType() {
-		return messageType;
+	public String getMessageFromType() {
+		return messageFromType;
 	}
 
-	public void setMessageType(String messageType) {
-		this.messageType = messageType;
+	public void setMessageFromType(String messageFromType) {
+		this.messageFromType = messageFromType;
+	}
+
+	public String getMessageToType() {
+		return messageToType;
+	}
+
+	public void setMessageToType(String messageToType) {
+		this.messageToType = messageToType;
 	}
 
 	public Boolean getIsRead() {
