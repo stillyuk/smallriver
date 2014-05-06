@@ -28,7 +28,7 @@ public class FileDownloadController {
 
 	@Autowired
 	private ResouceService resouceService;
-	
+
 	@Autowired
 	private GroupResourceService groupResourceService;
 

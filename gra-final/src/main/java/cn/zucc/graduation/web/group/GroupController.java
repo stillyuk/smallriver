@@ -89,7 +89,8 @@ public class GroupController {
 
 	@RequestMapping(value = "shareResource")
 	public String shareResource(Long groupId, Model model) {
-		model.addAttribute("groupId", groupId);
+		Group group = groupService.getGroup(groupId);
+		model.addAttribute("group", group);
 		return "group/shareResource";
 	}
 

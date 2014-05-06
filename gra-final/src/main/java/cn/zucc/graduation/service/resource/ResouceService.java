@@ -35,4 +35,8 @@ public class ResouceService {
 	public List<Resource> getAllResource() {
 		return (List<Resource>) resourceDao.findAll();
 	}
+
+	public void delete(Long resourceId) {
+		resourceDao.delete(resourceId);
+	}
 }

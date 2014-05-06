@@ -23,19 +23,19 @@
 		</div>
 	</c:if>
 	<div style="clear:both;"></div>
-	<div style="float:left; width:200px;">
-		<ul class="nav nav-pills nav-stacked">
+	<div>
+		<ul class="nav nav-pills">
 	 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
 			<li><a href="${ctx}/message/allSendMessages">所有发送的消息</a></li>
 			<li><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
 			<li class="active"><a href="${ctx}/message/sendMessage">发送消息</a></li>
 		</ul>
 	</div>
-	<div style="float:right; width:600px;">
+	<div style="height: 50px;"></div>
+	<div>
 		<form id="loginForm" action="${ctx}/message/doSendMessage" method="post" class="form-horizontal" role="form">
-			
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-6">
+				<div class="col-sm-6">
 					发送到：
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="icon-user"></i><span id="choiceUser">选择用户</span>
@@ -50,7 +50,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-6">
+				<div class="col-sm-6">
 					<input id="message" name="message" type="text" class="form-control required" />
 				</div>
 			</div>

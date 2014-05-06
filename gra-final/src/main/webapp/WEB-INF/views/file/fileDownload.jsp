@@ -8,6 +8,9 @@
 <title>文件下载</title>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li class="active">文件下载</li>
+	</ol>
 	<ul class="list-group">
 		<span class="label label-default">文件列表</span>
 		<c:forEach items="${resources}" var="resource">

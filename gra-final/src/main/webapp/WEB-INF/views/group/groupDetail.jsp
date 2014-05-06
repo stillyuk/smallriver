@@ -22,6 +22,10 @@
 		<a class="btn btn-primary" href="${ctx}/group/listGroupResource?groupId=${group.id}">查看群资源</a>
 	</div>
 	<div style="height: 40px;"></div>
+	<ol class="breadcrumb">
+		<li><a href="${ctx}/group">群组</a></li>
+		<li class="active">${group.groupName}</li>
+	</ol>
 	<ul class="list-group">
 		<li class="list-group-item">组名：${group.groupName}</li>
 		<li class="list-group-item">创建时间：${group.createDate}</li>

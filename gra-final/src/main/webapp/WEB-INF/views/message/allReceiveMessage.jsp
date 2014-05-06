@@ -8,15 +8,16 @@
 <title>首页</title>
 </head>
 <body>
-	<div style="float:left; width:200px;">
-		<ul class="nav nav-pills nav-stacked">
+	<div>
+		<ul class="nav nav-pills">
 	 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
 			<li><a href="${ctx}/message/allSendMessages">所有发送的消息</a></li>
 			<li class="active"><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
 			<li><a href="${ctx}/message/sendMessage">发送消息</a></li>
 		</ul>
 	</div>
-	<div style="float:right; width:300px;">
+	<div style="height: 50px;"></div>
+	<div>
 		<c:if test="${not empty messages}">
 			<ul class="list-group">
 			<c:forEach items="${messages}" var="message">

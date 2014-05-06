@@ -9,9 +9,13 @@
 </script>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li><a href="${ctx}/group">群组</a></li>
+		<li class="active">新建</li>
+	</ol>
 	<form id="inputForm" action="${ctx}/group/create" method="post" class="form-horizontal">
 		<fieldset>
-			<legend><small>添加群组</small></legend>
+<!-- 			<legend><small>添加群组</small></legend> -->
 			<div class="form-group">
 				<label for="loginName" class="col-sm-2 control-label">组名:</label>
 				<div class="col-sm-3">
