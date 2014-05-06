@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.zucc.graduation.core.MessageType;
 import cn.zucc.graduation.entity.Friend;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
@@ -22,8 +24,10 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 public class MessageController {
 	@Autowired
 	private MessageService messageService;
+
 	@Autowired
 	private FriendService friendService;
+
 	@Autowired
 	private AccountService accountService;
 
@@ -31,16 +35,19 @@ public class MessageController {
 	public String sendMessage(Model model) {
 		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("friends", friends);
+		List<Message> msgs = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("size", msgs.size());
 		return "message/sendMessage";
 	}
 
 	@RequestMapping(value = "doSendMessage", method = RequestMethod.POST)
-	public String doSendMessage(String message, String toUser, Model model) {
+	public String doSendMessage(String message, @RequestParam("toUser") String toUser, Model model) {
 		Message msg = new Message();
 		msg.setContent(message);
 		msg.setFrom(new User(ShiroUserUtil.getCurrentUserId()));
 		msg.setTo(new User(accountService.queryByLoginName(toUser).getId()));
 		msg.setMessageDate(new Date());
+		msg.setMessageType(MessageType.CHAT);
 		messageService.save(msg);
 		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("message", "发送成功");
@@ -49,10 +56,13 @@ public class MessageController {
 	}
 
 	@RequestMapping(value = "updateState", method = RequestMethod.GET)
-	public String updateState(Long messageId) {
+	public String updateState(Long messageId, Model model) {
 		Message message = messageService.getMessage(messageId);
 		message.setIsRead(true);
 		messageService.update(message);
+		List<Message> messages = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("messages", messages);
+		model.addAttribute("size", messages.size());
 		return "home";
 	}
 
@@ -60,6 +70,8 @@ public class MessageController {
 	public String allReceiveMessages(Model model) {
 		List<Message> messages = messageService.getMessagesByReceiveId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("messages", messages);
+		List<Message> msgs = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("size", msgs.size());
 		return "message/allReceiveMessage";
 	}
 
@@ -67,6 +79,8 @@ public class MessageController {
 	public String allSendMessages(Model model) {
 		List<Message> messages = messageService.getMessagesBySendId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("messages", messages);
+		List<Message> msgs = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("size", msgs.size());
 		return "message/allSendMessage";
 	}
 

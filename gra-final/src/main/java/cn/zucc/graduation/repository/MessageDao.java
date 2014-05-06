@@ -16,7 +16,7 @@ public interface MessageDao extends PagingAndSortingRepository<Message, Long>, J
 	@Query("select m from Message m join m.to t on t.id = ?1")
 	List<Message> getMessagesByReceiveId(Long receiveId);
 
-	@Query("select m from Message m join m.from t on t.id = ?1")
+	@Query("select m from Message m join m.from t on t.id = ?1 and messageType != 'system'")
 	List<Message> getMessagesBySendId(Long senderId);
 
 }

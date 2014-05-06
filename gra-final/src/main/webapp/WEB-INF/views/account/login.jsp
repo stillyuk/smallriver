@@ -22,6 +22,14 @@
 				</div>
 			</div>
 		</c:if>
+		<c:if test="${not empty message}">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4 alert alert-info">
+					<button class="close" data-dismiss="alert">×</button>
+					${message}
+				</div>
+			</div>
+		</c:if>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">用户名：</label>
 			<div class="col-sm-4">

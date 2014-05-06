@@ -65,4 +65,12 @@ public class GroupService {
 		List<Group> groups = groupDao.findAll(spec);
 		return groups;
 	}
+
+	public boolean isGroupMemberQueryByUserId(Long groupId, Long currentUserId) {
+		List<Group> groups = groupDao.isGroupMemberQueryByUserId(groupId, currentUserId);
+		if (groups == null || groups.size() == 0) {
+			return false;
+		}
+		return true;
+	}
 }

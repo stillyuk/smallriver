@@ -8,12 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.zucc.graduation.core.MessageType;
 import cn.zucc.graduation.entity.Group;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.message.MessageService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 @RequestMapping("/group")
@@ -35,8 +37,13 @@ public class JoinGroupController {
 		message.setTo(group.getManager());
 		message.setContent(getCurrentUserName() + "申请加入群" + group.getGroupName());
 		message.setMessageDate(new Date());
+		message.setMessageType(MessageType.SYSTEM);
 		messageService.save(message);
-		return "group/allGroups";
+		boolean isMember = groupService.isGroupMemberQueryByUserId(groupId, ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("group", group);
+		model.addAttribute("message", "申请消息已发送");
+		model.addAttribute("isMember", isMember);
+		return "group/groupDetail";
 	}
 
 	private Long getCurrentUserId() {

@@ -1,9 +1,12 @@
 package cn.zucc.graduation.web.friend;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.zucc.graduation.core.MessageType;
 import cn.zucc.graduation.entity.Friend;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
@@ -20,6 +23,7 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 public class FriendController {
 	@Autowired
 	private FriendService friendService;
+
 	@Autowired
 	private MessageService messageService;
 
@@ -33,6 +37,12 @@ public class FriendController {
 			friend.setFrom(from);
 			friend.setTo(to);
 			friendService.save(friend);
+			Message message = new Message();
+			message.setFrom(from);
+			message.setTo(to);
+			message.setMessageDate(new Date());
+			message.setContent(from.getLoginName() + "同意添加你为好友");
+			message.setMessageType(MessageType.SYSTEM);
 		}
 		Message message = messageService.getMessage(messageId);
 		message.setIsRead(true);

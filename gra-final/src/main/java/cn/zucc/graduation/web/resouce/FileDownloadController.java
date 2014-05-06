@@ -36,14 +36,14 @@ public class FileDownloadController {
 	}
 
 	@RequestMapping(value = "detail")
-	public String downloadForm(Long resourceId, Model model) {
+	public String downloadForm(Long resourceId, Model Model) {
 		Long userId = getCurrentUserId();
 		Resource resource = resouceService.getResourceByResourceIdAndUserId(userId, resourceId);
-		model.addAttribute("resource", resource);
+		Model.addAttribute("resource", resource);
 		return "file/fileDownloadDetail";
 	}
 
-	@RequestMapping(value = "{resouceId}", method = RequestMethod.GET)
+	@RequestMapping(value = "{resouceId}")
 	public ResponseEntity<byte[]> download(@PathVariable("resouceId") Long resourceId) throws Exception {
 		Resource resource = resouceService.getResource(resourceId);
 		resource.setDownloadTimes(resource.getDownloadTimes() + 1);

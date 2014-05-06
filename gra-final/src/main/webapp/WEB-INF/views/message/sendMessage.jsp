@@ -14,6 +14,15 @@
 </script>
 </head>
 <body>
+	<c:if test="${not empty message}">
+		<div class="form-group">
+			<div class=" col-sm-12 alert alert-info">
+				<button class="close" data-dismiss="alert">×</button>
+				${message}
+			</div>
+		</div>
+	</c:if>
+	<div style="clear:both;"></div>
 	<div style="float:left; width:200px;">
 		<ul class="nav nav-pills nav-stacked">
 	 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
@@ -24,16 +33,9 @@
 	</div>
 	<div style="float:right; width:600px;">
 		<form id="loginForm" action="${ctx}/message/doSendMessage" method="post" class="form-horizontal" role="form">
-			<c:if test="${not empty message}">
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
-						<button class="close" data-dismiss="alert">×</button>
-						${message}
-					</div>
-				</div>
-			</c:if>
+			
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-4">
+				<div class="col-sm-offset-2 col-sm-6">
 					发送到：
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="icon-user"></i><span id="choiceUser">选择用户</span>
@@ -48,12 +50,12 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-4">
+				<div class="col-sm-offset-2 col-sm-6">
 					<input id="message" name="message" type="text" class="form-control required" />
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-4">
+				<div class="col-sm-offset-2 col-sm-6">
 					<input type="submit" class="btn btn-primary" value="发送" />
 				</div>
 			</div>

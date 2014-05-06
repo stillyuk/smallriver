@@ -5,6 +5,6 @@
 <title>mail</title>
 </head>
 <body>
-	${loginName}注册成功，点击下面的链接激活<a href="${url}">${url}</a>
+	${loginName}注册成功，点击下面的链接激活账号<a href="${url}">${url}</a>
 </body>
 </html>

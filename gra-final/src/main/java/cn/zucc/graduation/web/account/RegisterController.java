@@ -42,7 +42,7 @@ public class RegisterController {
 		}
 		redirectAttributes.addFlashAttribute("mailServer", mailServer);
 		redirectAttributes.addFlashAttribute("user", user);
-		return "account/activate";
+		return "redirect:/activate/page";
 	}
 
 	@RequestMapping(value = "checkLoginName")

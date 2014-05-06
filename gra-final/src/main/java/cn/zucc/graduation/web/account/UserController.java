@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.zucc.graduation.core.MessageType;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
@@ -48,10 +49,12 @@ public class UserController {
 		Message message = new Message();
 		message.setContent(user.getLoginName() + "请求添加您为好友");
 		message.setFrom(user);
-		message.setTo(accountService.getUser(toId));
+		User to = accountService.getUser(toId);
+		message.setTo(to);
 		message.setMessageDate(new Date());
+		message.setMessageType(MessageType.SYSTEM);
 		messageService.save(message);
-		model.addAttribute("user", user);
+		model.addAttribute("user", to);
 		model.addAttribute("isFriend", isFriend);
 		model.addAttribute("message", "请求已发送");
 		return "account/userInfo";

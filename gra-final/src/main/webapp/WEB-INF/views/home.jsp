@@ -16,7 +16,7 @@
 			<li><a href="${ctx}/message/sendMessage">发送消息</a></li>
 		</ul>
 	</div>
-	<div style="float:right; width:300px;">
+	<div style="float:right; width:500px;">
 		<c:if test="${not empty messages}">
 			<c:forEach items="${messages}" var="message">
 				<div class="alert alert-info">

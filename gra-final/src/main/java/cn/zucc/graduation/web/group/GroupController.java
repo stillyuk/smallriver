@@ -20,6 +20,7 @@ import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.groupresource.GroupResourceService;
 import cn.zucc.graduation.utils.PropUtil;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 @RequestMapping("/group")
@@ -70,6 +71,8 @@ public class GroupController {
 		List<User> users = group.getUsers();
 		model.addAttribute("group", group);
 		model.addAttribute("groupSize", users.size());
+		boolean isMember = groupService.isGroupMemberQueryByUserId(groupId, ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("isMember", isMember);
 		return "group/groupDetail";
 	}
 
