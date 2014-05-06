@@ -8,13 +8,15 @@
 <title>文件下载</title>
 </head>
 <body>
-	<div class="row">
+	<ul class="list-group">
+		<span class="label label-default">文件列表</span>
 		<c:forEach items="${resources}" var="resource">
-			<div class="col-xs-6 col-md-3">
-				<a href="${ctx}/file/download/detail?resourceId=${resource.id}" class="thumbnail">${resource.name}
+			<li class="list-group-item">
+				<a href="${ctx}/file/download/detail?resourceId=${resource.id}" class="thumbnail">
+					${resource.name}
 				</a>
-			</div>
+			</li>
 		</c:forEach>
-	</div>
+	</ul>
 </body>
 </html>
