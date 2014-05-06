@@ -22,6 +22,8 @@ public class User extends IdEntity {
 	private String name;
 	private String password;
 	private String email;
+	private String activateCode;
+	private Boolean isActivate = false;
 	private String roles;
 	private Date registerDate;
 	private List<Group> groups;
@@ -68,6 +70,23 @@ public class User extends IdEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Column(name = "ActivateCode", length = 70)
+	public String getActivateCode() {
+		return activateCode;
+	}
+
+	public void setActivateCode(String activateCode) {
+		this.activateCode = activateCode;
+	}
+
+	public Boolean getIsActivate() {
+		return isActivate;
+	}
+
+	public void setIsActivate(Boolean isActivate) {
+		this.isActivate = isActivate;
 	}
 
 	public String getRoles() {

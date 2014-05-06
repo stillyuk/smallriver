@@ -8,12 +8,6 @@
 <title>详细信息</title>
 </head>
 <body>
-	<ul class="nav nav-tabs">
-		<li><a href="${ctx}">Home</a></li>
-		<li><a href="${ctx}/file/upload">文件上传</a></li>
-		<li><a href="${ctx}/file/download">文件下载</a></li>
-		<li class="active"><a href="${ctx}/group">群组</a></li>
-	</ul>
 	<div class="btn-group pull-right">
 		<a class="btn active" href="${ctx}/group/shareResource?groupId=${group.id}">共享资源</a>
 		<a class="btn btn-primary" href="${ctx}/group/listGroupResource?groupId=${group.id}">查看群资源</a>

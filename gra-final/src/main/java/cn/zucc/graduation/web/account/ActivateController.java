@@ -15,8 +15,10 @@ public class ActivateController {
 	@Autowired
 	private AccountService accountService;
 
-	@RequestMapping(method = RequestMethod.POST)
-	public String activate(User user, RedirectAttributes redirectAttributes) {
+	@RequestMapping(method = RequestMethod.GET)
+	public String activate(Long userId, String activateCode, RedirectAttributes redirectAttributes) {
+		User user = accountService.getUser(userId);
+		user.setIsActivate(true);
 		accountService.save(user);
 		redirectAttributes.addFlashAttribute("username", user.getLoginName());
 		return "redirect:/login";

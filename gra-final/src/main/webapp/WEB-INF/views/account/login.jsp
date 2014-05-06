@@ -18,7 +18,7 @@
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-4 alert alert-danger">
 					<button class="close" data-dismiss="alert">×</button>
-					登录失败<a href="#" class="alert-link">请重试</a>
+					登录失败，请重新登录或登录邮箱激活账号
 				</div>
 			</div>
 		</c:if>

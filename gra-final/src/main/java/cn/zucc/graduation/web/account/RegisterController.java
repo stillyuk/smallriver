@@ -1,5 +1,6 @@
 package cn.zucc.graduation.web.account;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
 import cn.zucc.graduation.utils.JavaMailUtil;
+import cn.zucc.graduation.utils.MD5Util;
 
 @Controller
 @RequestMapping("/register")
@@ -28,8 +30,10 @@ public class RegisterController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String registe(User user, RedirectAttributes redirectAttributes) {
+		user.setActivateCode(UUID.randomUUID().toString());
+		user.setPassword(MD5Util.getMD5(user.getPassword()));
 		user = accountService.save(user);
-		JavaMailUtil.sendMail("191295604@qq.com");
+		JavaMailUtil.sendMail("191295604@qq.com", user);
 		String mailServer = null;
 		Pattern p = Pattern.compile("@(.*)");
 		Matcher m = p.matcher(user.getEmail());
@@ -40,7 +44,7 @@ public class RegisterController {
 		redirectAttributes.addFlashAttribute("user", user);
 		return "account/activate";
 	}
- 
+
 	@RequestMapping(value = "checkLoginName")
 	@ResponseBody
 	public String checkLoginName(@RequestParam("loginName") String loginName) {

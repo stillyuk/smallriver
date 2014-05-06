@@ -8,12 +8,7 @@
 <title>group</title>
 </head>
 <body>
-	<ul class="nav nav-tabs">
-		<li><a href="${ctx}">Home</a></li>
-		<li><a href="${ctx}/file/upload">文件上传</a></li>
-		<li><a href="${ctx}/file/download">文件下载</a></li>
-		<li class="active"><a href="${ctx}/group">群组</a></li>
-	</ul>
+
 	<div style="height: 50px;"></div>
 	<ul class="list-group">
 		<span class="label label-default">所有群列表</span>

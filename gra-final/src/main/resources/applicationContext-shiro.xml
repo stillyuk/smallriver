@@ -7,6 +7,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroDbRealm" />
 		<property name="cacheManager" ref="cacheManager" />
+<!-- 		<property name="credentialsMatcher" ref="hashedCredentialsMatcher" /> -->
 	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -17,11 +18,17 @@
 				/login = authc
 				/logout = logout
 				/register/** = anon
+				/activate/** = anon
 				/test/** = anon
 				/static/** = anon
 				/admin/** = roles[admin]
 				/** = user
 			</value>
 		</property>
+	</bean>
+	<bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="MD5" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+		<property name="hashIterations" value="1" />
 	</bean>
 </beans>

@@ -18,8 +18,8 @@ public class MailTest {
 	@Test
 	public void sender() {
 		String to = "191295604@qq.com";
-		SimpleMailMessage mail = new SimpleMailMessage();
 		try {
+			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(to);
 			mail.setFrom("191295604@qq.com");
 			mail.setSubject("spring mail test!");
