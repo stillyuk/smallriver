@@ -1,24 +1,36 @@
 package cn.zucc.graduation.entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "gra_message")
-public class Message extends IdEntity {
+public class Message extends GeneralEntity {
+	private Long id;
 	private User from;
 	private User to;
 	private String content;
-	private Date messageDate;
 	private String messageFromType;
 	private String messageToType;
 	private Boolean isRead = false;
+
+	@Id
+	@GeneratedValue(generator = "nativeGenerator")
+	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "from_user")
@@ -47,14 +59,6 @@ public class Message extends IdEntity {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Date getMessageDate() {
-		return messageDate;
-	}
-
-	public void setMessageDate(Date messageDate) {
-		this.messageDate = messageDate;
 	}
 
 	public String getMessageFromType() {

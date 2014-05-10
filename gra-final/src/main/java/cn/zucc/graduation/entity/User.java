@@ -6,22 +6,27 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "gra_user")
-public class User extends IdEntity {
+public class User extends GeneralEntity {
+	private Long id;
 	private String loginName;
 	private String name;
 	private String password;
 	private String email;
+
 	private String activateCode;
 	private Boolean isActivate = false;
 	private String roles;
@@ -32,6 +37,17 @@ public class User extends IdEntity {
 	}
 
 	public User(Long id) {
+		this.id = id;
+	}
+
+	@Id
+	@GeneratedValue(generator = "nativeGenerator")
+	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 

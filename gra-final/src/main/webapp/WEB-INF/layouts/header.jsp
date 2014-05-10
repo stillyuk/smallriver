@@ -20,6 +20,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="${ctx}">首页</a></li>
+						<li><a href="${ctx}/friend">好友</a></li>
 						<li><a href="${ctx}/file/upload">文件上传</a></li>
 						<li><a href="${ctx}/file/download">文件下载</a></li>
 						<li><a href="${ctx}/group">群组</a></li>

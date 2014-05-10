@@ -51,7 +51,7 @@ public class GroupController {
 		User user = new User();
 		user.setId(userId);
 		group.setManager(user);
-		group.setCreateDate(new Date());
+		group.setDate(new Date());
 		group.setUsers(Arrays.asList(user));
 		groupService.save(group);
 		model.addAttribute("message", "群组" + group.getGroupName() + "创建成功");
@@ -106,7 +106,7 @@ public class GroupController {
 		GroupResource groupResource = new GroupResource();
 		groupResource.setGroup(group);
 		groupResource.setName(file.getOriginalFilename());
-		groupResource.setUploadDate(new Date());
+		groupResource.setDate(new Date());
 		groupResource.setLocation(location + group.getGroupName());
 		User user = new User();
 		user.setId(getCurrentUserId());

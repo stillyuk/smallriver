@@ -42,7 +42,7 @@ public class JoinGroupController {
 		message.setFrom(from);
 		message.setTo(group.getManager());
 		message.setContent(getCurrentUserName() + "申请加入群" + group.getGroupName());
-		message.setMessageDate(new Date());
+		message.setDate(new Date());
 		message.setMessageFromType(MessageType.SYSTEM);
 		message.setMessageToType(MessageType.ADD_GROUP);
 		messageService.save(message);

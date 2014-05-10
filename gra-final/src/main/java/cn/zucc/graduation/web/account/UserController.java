@@ -51,7 +51,7 @@ public class UserController {
 		message.setFrom(user);
 		User to = accountService.getUser(toId);
 		message.setTo(to);
-		message.setMessageDate(new Date());
+		message.setDate(new Date());
 		message.setMessageFromType(MessageType.SYSTEM);
 		message.setMessageToType(MessageType.ADD_FRIEND);
 		messageService.save(message);

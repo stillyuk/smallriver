@@ -71,7 +71,7 @@ public class GroupResourceController {
 		if (to != null) {
 			dis.setReplyTo(to);
 		}
-		dis.setDiscussDate(new Date());
+		dis.setDate(new Date());
 		dis.setUser(new User(getCurrentUserId()));
 		List<Discuss> discusses = groupResource.getDiscusses();
 		discusses.add(dis);

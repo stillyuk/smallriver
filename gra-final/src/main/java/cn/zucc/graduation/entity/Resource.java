@@ -1,21 +1,33 @@
 package cn.zucc.graduation.entity;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "gra_resource")
-public class Resource extends IdEntity {
+public class Resource extends GeneralEntity {
+	private Long id;
 	private String name;
 	private User user;
-	private Date resourceDate;
 	private int downloadTimes;
 	private String location;
-	private String remark;
+
+	@Id
+	@GeneratedValue(generator = "nativeGenerator")
+	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -35,14 +47,6 @@ public class Resource extends IdEntity {
 		this.user = user;
 	}
 
-	public Date getResourceDate() {
-		return resourceDate;
-	}
-
-	public void setResourceDate(Date resourceDate) {
-		this.resourceDate = resourceDate;
-	}
-
 	public int getDownloadTimes() {
 		return downloadTimes;
 	}
@@ -57,13 +61,5 @@ public class Resource extends IdEntity {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 }

@@ -1,9 +1,10 @@
 package cn.zucc.graduation.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -11,16 +12,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "gra_group")
-public class Group extends IdEntity {
+public class Group extends GeneralEntity {
+	private Long id;
 	private String groupName;
-	private Date createDate;
 	private List<User> users;
 	private User manager;
-	private List<GroupResource> groupResources;
+	private List<Project> projects;
+
+	@Id
+	@GeneratedValue(generator = "nativeGenerator")
+	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@NotBlank
 	public String getGroupName() {
@@ -29,14 +42,6 @@ public class Group extends IdEntity {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
 	}
 
 	@ManyToMany
@@ -59,13 +64,12 @@ public class Group extends IdEntity {
 		this.manager = manager;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "groupid")
-	public List<GroupResource> getGroupResources() {
-		return groupResources;
+	@OneToMany(mappedBy = "group")
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setGroupResources(List<GroupResource> groupResources) {
-		this.groupResources = groupResources;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 }

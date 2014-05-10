@@ -1,27 +1,40 @@
 package cn.zucc.graduation.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "gra_GroupResource")
-public class GroupResource extends IdEntity {
+public class GroupResource extends GeneralEntity {
+	private Long id;
 	private String name;
-	private Date uploadDate;
 	private User uploadUser;
 	private int downloadTimes;
 	private String location;
 	private List<Discuss> discusses;
 	private Group group;
+
+	@Id
+	@GeneratedValue(generator = "nativeGenerator")
+	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@NotBlank
 	public String getName() {
@@ -30,14 +43,6 @@ public class GroupResource extends IdEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Date getUploadDate() {
-		return uploadDate;
-	}
-
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
 	}
 
 	@ManyToOne
@@ -77,7 +82,7 @@ public class GroupResource extends IdEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "groupid")
+	@JoinColumn(name = "projectId")
 	public Group getGroup() {
 		return group;
 	}

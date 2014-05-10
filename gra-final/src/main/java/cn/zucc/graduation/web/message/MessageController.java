@@ -46,7 +46,7 @@ public class MessageController {
 		msg.setContent(message);
 		msg.setFrom(new User(ShiroUserUtil.getCurrentUserId()));
 		msg.setTo(new User(accountService.queryByLoginName(toUser).getId()));
-		msg.setMessageDate(new Date());
+		msg.setDate(new Date());
 		msg.setMessageFromType(MessageType.CHAT);
 		msg.setMessageToType(MessageType.CHAT);
 		messageService.save(msg);
