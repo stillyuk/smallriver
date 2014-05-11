@@ -23,25 +23,33 @@
 		</div>
 	</c:if>
 	<div style="clear:both;"></div>
-	<div>
-		<ul class="nav nav-pills">
-	 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
-			<li><a href="${ctx}/message/allSendMessages">所有发送的消息</a></li>
-			<li><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
-			<li class="active"><a href="${ctx}/message/sendMessage">发送消息</a></li>
-		</ul>
-	</div>
-	<div style="height: 50px;"></div>
+	<c:if test="${empty user}">
+		<div>
+			<ul class="nav nav-pills">
+		 		<li><a href="${ctx}/index">未处理的消息<span class="badge">${size}</span></a>
+				<li><a href="${ctx}/message/allSendMessages">所有发送的消息</a></li>
+				<li><a href="${ctx}/message/allReceiveMessages">所有接受的消息</a></li>
+				<li class="active"><a href="${ctx}/message/sendMessage">发送消息</a></li>
+			</ul>
+		</div>
+	</c:if>
+	<div style="height: 25px;"></div>
 	<div>
 		<form id="loginForm" action="${ctx}/message/doSendMessage" method="post" class="form-horizontal" role="form">
 			<div class="form-group">
 				<div class="col-sm-6">
 					发送到：
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span id="choiceUser">选择用户</span>
+						<i class="icon-user"></i>
+						<span id="choiceUser">
+							<c:choose>
+								<c:when test="${not empty user}">${user.loginName}</c:when>
+								<c:otherwise>选择用户</c:otherwise>
+							</c:choose>
+						</span>
 						<span class="caret"></span>
 					</a>
-					<input id="toUser" name="toUser" type="hidden" value="" />
+					<input id="toUser" name="toUser" type="hidden" value="${user.loginName}" />
 					<ul class="dropdown-menu">
 						<c:forEach items="${friends}" var="friend">
 							<li onclick="test(this);"><a href="#">${friend.to.loginName}</a></li>

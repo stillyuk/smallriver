@@ -29,7 +29,7 @@ public class AccountService {
 	private UserDao userDao;
 
 	public User save(User user) {
-		user.setRegisterDate(new Date());
+		user.setDate(new Date());
 		user.setRoles("user");
 		return userDao.save(user);
 	}

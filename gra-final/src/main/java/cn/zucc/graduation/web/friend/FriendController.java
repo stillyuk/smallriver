@@ -1,6 +1,7 @@
 package cn.zucc.graduation.web.friend;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.zucc.graduation.core.MessageType;
+import cn.zucc.graduation.dto.FriendDto;
 import cn.zucc.graduation.entity.Friend;
 import cn.zucc.graduation.entity.Message;
 import cn.zucc.graduation.entity.User;
@@ -23,14 +25,20 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 @Controller
 @RequestMapping("/friend")
 public class FriendController {
+
 	@Autowired
 	private FriendService friendService;
-
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private MessageService messageService;
+
+	@RequestMapping
+	public String index(Model model) {
+		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("friends", FriendDto.dto(friends));
+		return "friend/friendList";
+	}
 
 	@RequestMapping("/handler")
 	public String handlerRequest(Long toId, String choice, Long messageId, Model model) {
@@ -41,10 +49,12 @@ public class FriendController {
 			Friend friend = new Friend();
 			friend.setFrom(from);
 			friend.setTo(to);
+			friend.setDate(new Date());
 			friendService.save(friend);
 			friend = new Friend();
 			friend.setFrom(to);
 			friend.setTo(from);
+			friend.setDate(new Date());
 			friendService.save(friend);
 			Message message = new Message();
 			message.setFrom(from);

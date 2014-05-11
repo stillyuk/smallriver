@@ -39,7 +39,7 @@
 		<li class="list-group-item">发送用户：<a
 			href="${ctx}/user/info?userId=${message.from.id}">${message.from.loginName}</a></li>
 		<li class="list-group-item">发送日期： <fmt:formatDate
-				value="${message.messageDate}" pattern="yyyy年MM月dd日" />
+				value="${message.date}" pattern="yyyy年MM月dd日" />
 		</li>
 		<c:if test="${message.isRead}">
 			<div class="alert alert-danger">

@@ -1,7 +1,6 @@
 package cn.zucc.graduation.entity;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,7 +29,6 @@ public class User extends GeneralEntity {
 	private String activateCode;
 	private Boolean isActivate = false;
 	private String roles;
-	private Date registerDate;
 	private List<Group> groups;
 
 	public User() {
@@ -116,14 +114,6 @@ public class User extends GeneralEntity {
 
 	public void setRoles(String roles) {
 		this.roles = roles;
-	}
-
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
 	}
 
 	@ManyToMany

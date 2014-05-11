@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
 <script>
-	
 </script>
 </head>
 <body>
@@ -18,15 +17,14 @@
 			${message}
 		</div>
 	</c:if>
-<!-- 	<div style="height:50px;"></div> -->
 	<ul class="list-group">
 		<li class="list-group-item">登陆名：${user.loginName }</li>
 		<li class="list-group-item">用户名称：${user.name }</li>
 		<li class="list-group-item">注册时间：
-			<fmt:formatDate value="${user.registerDate }" pattern="yyyy年MM月dd日" /></li>
+			<fmt:formatDate value="${user.date}" pattern="yyyy年MM月dd日" /></li>
 		<li class="list-group-item">
 			<c:if test="${isFriend}">
-				<a href="${ctx}/user/add?toId=${user.id}">已经是好友啦，开始聊天</a>
+				<a href="${ctx}/message/sendMessage?toId=${user.id}">发送消息</a>
 			</c:if>
 			<c:if test="${!isFriend}">
 				<a href="${ctx}/user/add?toId=${user.id}">添加好友</a>

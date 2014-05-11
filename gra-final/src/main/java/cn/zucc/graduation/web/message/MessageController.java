@@ -24,17 +24,19 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 public class MessageController {
 	@Autowired
 	private MessageService messageService;
-
 	@Autowired
 	private FriendService friendService;
-
 	@Autowired
 	private AccountService accountService;
 
 	@RequestMapping(value = "sendMessage", method = RequestMethod.GET)
-	public String sendMessage(Model model) {
+	public String sendMessage(Long toId, Model model) {
 		List<Friend> friends = friendService.findFriendsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("friends", friends);
+		if (toId != null) {
+			User user = accountService.getUser(toId);
+			model.addAttribute("user", user);
+		}
 		List<Message> msgs = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("size", msgs.size());
 		return "message/sendMessage";
