@@ -1,4 +1,4 @@
-package cn.zucc.graduation.web.group;
+package cn.zucc.graduation.web.project;
 
 import java.util.Date;
 import java.util.List;
@@ -13,42 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.zucc.graduation.entity.Discuss;
-import cn.zucc.graduation.entity.GroupResource;
+import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
 import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
-import cn.zucc.graduation.service.group.GroupService;
-import cn.zucc.graduation.service.groupresource.GroupResourceService;
+import cn.zucc.graduation.service.project.ProjectResourceService;
+import cn.zucc.graduation.service.project.ProjectService;
 
 @Controller
-@RequestMapping("/group")
-public class GroupResourceController {
-
+@RequestMapping("/project")
+public class ProjectResourceController {
 	@Autowired
-	private GroupService groupService;
-
+	private ProjectService projectService;
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
-	private GroupResourceService groupResourceService;
+	private ProjectResourceService projectResourceService;
 
-	@RequestMapping("listGroupResource")
+	@RequestMapping("listProjectResource")
 	public String list(long groupId, Model model) {
-		List<GroupResource> groupResources = groupResourceService.getAllGroupResource(groupId);
-		model.addAttribute("groupResources", groupResources);
+		List<ProjectService> projectServices = projectResourceService.getAllProjectResource(groupId);
+		model.addAttribute("projectServices", projectServices);
 		return "group/groupResourceList";
 	}
 
-	@RequestMapping("groupResourceDetail")
-	public String groupResourceDetail(long groupResourceId, Model model) {
-		GroupResource groupResource = groupResourceService.getGroupResource(groupResourceId);
+	@RequestMapping("projectResourceDetail")
+	public String groupResourceDetail(long projectResourceId, Model model) {
+		ProjectResource groupResource = projectResourceService.getProjectResource(projectResourceId);
 		model.addAttribute("groupResource", groupResource);
 		return "group/groupResourceDetail";
 	}
 
 	@RequestMapping("addDiscuss")
-	public String addDiscuss(long groupResourceId, String discuss, RedirectAttributes redirectAttributes) {
+	public String addDiscuss(long projectResourceId, String discuss, RedirectAttributes redirectAttributes) {
 		Pattern p = Pattern.compile("：(\\w+)");
 		Pattern user = Pattern.compile("@(\\w+)：");
 		Matcher m = p.matcher(discuss);
@@ -61,7 +58,7 @@ public class GroupResourceController {
 		while (u.find()) {
 			replyTo = u.group(1);
 		}
-		GroupResource groupResource = groupResourceService.getGroupResource(groupResourceId);
+		ProjectResource groupResource = projectResourceService.getProjectResource(projectResourceId);
 		Discuss dis = new Discuss();
 		dis.setContent(content);
 		User to = null;
@@ -76,8 +73,8 @@ public class GroupResourceController {
 		List<Discuss> discusses = groupResource.getDiscusses();
 		discusses.add(dis);
 		groupResource.setDiscusses(discusses);
-		groupResourceService.save(groupResource);
-		redirectAttributes.addAttribute("groupResourceId", groupResourceId);
+		projectResourceService.save(groupResource);
+		redirectAttributes.addAttribute("groupResourceId", projectResourceId);
 		return "redirect:/group/groupResourceDetail";
 	}
 

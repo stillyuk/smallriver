@@ -7,25 +7,25 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.zucc.graduation.entity.GroupResource;
-import cn.zucc.graduation.repository.GroupResourceDao;
+import cn.zucc.graduation.entity.ProjectResource;
+import cn.zucc.graduation.repository.ProjectResourceDao;
 
 @Service
 @Transactional
 public class GroupResourceService {
 
 	@Autowired
-	private GroupResourceDao groupResourceDao;
+	private ProjectResourceDao projectResourceDao;
 
-	public GroupResource save(GroupResource groupResource) {
-		return groupResourceDao.save(groupResource);
+	public ProjectResource save(ProjectResource groupResource) {
+		return projectResourceDao.save(groupResource);
 	}
 
-	public List<cn.zucc.graduation.entity.GroupResource> getAllGroupResource(Long groupId) {
-		return groupResourceDao.findGroupResourceByGroupId(groupId);
+	public List<ProjectResource> getAllGroupResource(Long groupId) {
+		return projectResourceDao.findGroupResourceByGroupId(groupId);
 	}
 
-	public GroupResource getGroupResource(long groupResourceId) {
-		return groupResourceDao.findOne(groupResourceId);
+	public ProjectResource getGroupResource(long groupResourceId) {
+		return projectResourceDao.findOne(groupResourceId);
 	}
 }

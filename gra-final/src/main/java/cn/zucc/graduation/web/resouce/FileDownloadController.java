@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cn.zucc.graduation.entity.GroupResource;
+import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.Resource;
-import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
-import cn.zucc.graduation.service.groupresource.GroupResourceService;
+import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.resource.ResouceService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 @RequestMapping("/file/download")
@@ -30,11 +29,11 @@ public class FileDownloadController {
 	private ResouceService resouceService;
 
 	@Autowired
-	private GroupResourceService groupResourceService;
+	private ProjectResourceService projectResourceService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		Long userId = getCurrentUserId();
+		Long userId = ShiroUserUtil.getCurrentUserId();
 		List<Resource> resources = resouceService.getResourceByUserId(userId);
 		model.addAttribute("resources", resources);
 		return "file/fileDownload";
@@ -42,7 +41,7 @@ public class FileDownloadController {
 
 	@RequestMapping(value = "detail")
 	public String downloadForm(Long resourceId, Model Model) {
-		Long userId = getCurrentUserId();
+		Long userId = ShiroUserUtil.getCurrentUserId();
 		Resource resource = resouceService.getResourceByResourceIdAndUserId(userId, resourceId);
 		Model.addAttribute("resource", resource);
 		return "file/fileDownloadDetail";
@@ -60,20 +59,15 @@ public class FileDownloadController {
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(filePath)), headers, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/groupResource/{groupResourceId}")
-	public ResponseEntity<byte[]> downloadGroupResource(@PathVariable("groupResourceId") Long groupResourceId) throws Exception {
-		GroupResource groupResource = groupResourceService.getGroupResource(groupResourceId);
-		groupResource.setDownloadTimes(groupResource.getDownloadTimes() + 1);
-		groupResourceService.save(groupResource);
+	@RequestMapping(value = "/projectResource/{projectResourceId}")
+	public ResponseEntity<byte[]> downloadProjectResource(@PathVariable("groupResourceId") Long projectResourceId) throws Exception {
+		ProjectResource projectResource = projectResourceService.getProjectResource(projectResourceId);
+		projectResource.setDownloadTimes(projectResource.getDownloadTimes() + 1);
+		projectResourceService.save(projectResource);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-		headers.setContentDispositionFormData("attachment", groupResource.getName());
-		String filePath = groupResource.getLocation() + "/" + groupResource.getName();
+		headers.setContentDispositionFormData("attachment", projectResource.getName());
+		String filePath = projectResource.getLocation() + "/" + projectResource.getName();
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(filePath)), headers, HttpStatus.CREATED);
-	}
-
-	private Long getCurrentUserId() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.getId();
 	}
 }

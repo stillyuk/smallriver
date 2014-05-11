@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.zucc.graduation.entity.Group;
-import cn.zucc.graduation.entity.GroupResource;
+import cn.zucc.graduation.entity.Project;
+import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.groupresource.GroupResourceService;
+import cn.zucc.graduation.service.project.ProjectService;
 import cn.zucc.graduation.utils.PropUtil;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
@@ -28,7 +30,8 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
-
+	@Autowired
+	private ProjectService projectService;
 	@Autowired
 	private GroupResourceService groupResourceService;
 
@@ -95,23 +98,23 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "saveResource")
-	public String saveResource(Long groupId, MultipartFile file) throws Exception {
+	public String saveResource(Long projectId, MultipartFile file) throws Exception {
 		String location = PropUtil.getProperty("groupFile");
-		Group group = groupService.getGroup(groupId);
-		File path = new File(location + group.getGroupName());
+		Project project = projectService.getProject(projectId);
+		File path = new File(location + project.getProjectName());
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-		file.transferTo(new File(location + group.getGroupName() + "/" + file.getOriginalFilename()));
-		GroupResource groupResource = new GroupResource();
-		groupResource.setGroup(group);
-		groupResource.setName(file.getOriginalFilename());
-		groupResource.setDate(new Date());
-		groupResource.setLocation(location + group.getGroupName());
+		file.transferTo(new File(location + project.getProjectName() + "/" + file.getOriginalFilename()));
+		ProjectResource projectResource = new ProjectResource();
+		projectResource.setProject(project);
+		projectResource.setName(file.getOriginalFilename());
+		projectResource.setDate(new Date());
+		projectResource.setLocation(location + project.getProjectName());
 		User user = new User();
 		user.setId(getCurrentUserId());
-		groupResource.setUploadUser(user);
-		groupResourceService.save(groupResource);
+		projectResource.setUploadUser(user);
+		groupResourceService.save(projectResource);
 		return "group/shareResource";
 	}
 

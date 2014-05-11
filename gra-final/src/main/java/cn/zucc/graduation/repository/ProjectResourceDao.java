@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import cn.zucc.graduation.entity.GroupResource;
+import cn.zucc.graduation.entity.ProjectResource;
 
-public interface GroupResourceDao extends PagingAndSortingRepository<GroupResource, Long>, JpaSpecificationExecutor<GroupResource> {
+public interface ProjectResourceDao extends PagingAndSortingRepository<ProjectResource, Long>, JpaSpecificationExecutor<ProjectResource> {
 
 	@Query("select g from GroupResource g join g.group p on p.id = ?1")
-	List<GroupResource> findGroupResourceByGroupId(Long groupId);
+	List<ProjectResource> findGroupResourceByGroupId(Long groupId);
 }

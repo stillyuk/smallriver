@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cn.zucc.graduation.entity.Group;
-import cn.zucc.graduation.entity.GroupResource;
+import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
 
 public interface GroupDao extends PagingAndSortingRepository<Group, Long>, JpaSpecificationExecutor<Group> {
@@ -17,7 +17,7 @@ public interface GroupDao extends PagingAndSortingRepository<Group, Long>, JpaSp
 	@Query("select u from User u left join u.groups g where g.id=?1")
 	public List<User> findUsersByGroupId(Long groupId);
 
-	public List<GroupResource> findGroupResourceById(Long groupId);
+	public List<ProjectResource> findGroupResourceById(Long groupId);
 
 	@Modifying
 	@Query("select g from Group g join fetch g.users u where u.id=?1")

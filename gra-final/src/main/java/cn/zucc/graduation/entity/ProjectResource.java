@@ -5,29 +5,30 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "gra_GroupResource")
-public class GroupResource extends GeneralEntity {
+@Table(name = "gra_ProjectResource")
+public class ProjectResource extends GeneralEntity {
 	private Long id;
 	private String name;
 	private User uploadUser;
 	private int downloadTimes;
 	private String location;
 	private List<Discuss> discusses;
-	private Group group;
+	private Project project;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator")
-	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_GROUP_RESOURCE_SEQUENCE")
 	public Long getId() {
 		return id;
 	}
@@ -83,11 +84,11 @@ public class GroupResource extends GeneralEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "projectId")
-	public Group getGroup() {
-		return group;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }
