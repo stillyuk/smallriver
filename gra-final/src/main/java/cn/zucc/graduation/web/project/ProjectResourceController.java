@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +15,9 @@ import cn.zucc.graduation.entity.Discuss;
 import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
-import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.project.ProjectService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 @RequestMapping("/project")
@@ -31,17 +30,17 @@ public class ProjectResourceController {
 	private ProjectResourceService projectResourceService;
 
 	@RequestMapping("listProjectResource")
-	public String list(long groupId, Model model) {
-		List<ProjectService> projectServices = projectResourceService.getAllProjectResource(groupId);
-		model.addAttribute("projectServices", projectServices);
-		return "group/groupResourceList";
+	public String list(long projectId, Model model) {
+		List<ProjectResource> projectResources = projectResourceService.getAllProjectResource(projectId);
+		model.addAttribute("projectResources", projectResources);
+		return "project/projectResourceList";
 	}
 
 	@RequestMapping("projectResourceDetail")
 	public String groupResourceDetail(long projectResourceId, Model model) {
 		ProjectResource groupResource = projectResourceService.getProjectResource(projectResourceId);
 		model.addAttribute("groupResource", groupResource);
-		return "group/groupResourceDetail";
+		return "project/groupResourceDetail";
 	}
 
 	@RequestMapping("addDiscuss")
@@ -69,17 +68,12 @@ public class ProjectResourceController {
 			dis.setReplyTo(to);
 		}
 		dis.setDate(new Date());
-		dis.setUser(new User(getCurrentUserId()));
+		dis.setUser(new User(ShiroUserUtil.getCurrentUserId()));
 		List<Discuss> discusses = groupResource.getDiscusses();
 		discusses.add(dis);
 		groupResource.setDiscusses(discusses);
 		projectResourceService.save(groupResource);
 		redirectAttributes.addAttribute("groupResourceId", projectResourceId);
-		return "redirect:/group/groupResourceDetail";
-	}
-
-	private Long getCurrentUserId() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		return user.getId();
+		return "redirect:/project/projectResourceDetail";
 	}
 }

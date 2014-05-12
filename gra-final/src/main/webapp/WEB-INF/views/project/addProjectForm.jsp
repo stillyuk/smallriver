@@ -10,16 +10,16 @@
 </head>
 <body>
 	<ol class="breadcrumb">
-		<li><a href="${ctx}/group">团队</a></li>
-		<li class="active">新建团队</li>
+		<li><a href="${ctx}/group">项目</a></li>
+		<li class="active">新建</li>
 	</ol>
-	<form id="inputForm" action="${ctx}/group/create" method="post" class="form-horizontal">
+	<form id="inputForm" action="${ctx}/project/create" method="post" class="form-horizontal">
 		<fieldset>
 <!-- 			<legend><small>添加群组</small></legend> -->
 			<div class="form-group">
-				<label for="groupName" class="col-sm-2 control-label">团队名:</label>
+				<label for="projectName" class="col-sm-2 control-label">项目名:</label>
 				<div class="col-sm-3">
-					<input type="text" id="groupName" name="groupName" class="form-control required" minlength="3"/>
+					<input type="text" id="projectName" name="projectName" class="form-control required" minlength="3"/>
 				</div>
 			</div>
 			<div class="form-group">

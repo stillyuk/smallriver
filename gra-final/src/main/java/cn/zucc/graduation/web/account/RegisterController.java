@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
 import cn.zucc.graduation.utils.JavaMailUtil;
-import cn.zucc.graduation.utils.MD5Util;
 
 @Controller
 @RequestMapping("/register")
@@ -31,7 +31,7 @@ public class RegisterController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String registe(User user, RedirectAttributes redirectAttributes) {
 		user.setActivateCode(UUID.randomUUID().toString());
-		user.setPassword(MD5Util.getMD5(user.getPassword()));
+		user.setPassword(new Md5Hash(user.getPassword()).toHex());
 		user = accountService.save(user);
 		JavaMailUtil.sendMail("191295604@qq.com", user);
 		String mailServer = null;

@@ -9,10 +9,10 @@
 </head>
 <body>
 	<ul class="list-group">
-		<span class="label label-default">所有团队列表</span>
-		<c:forEach items="${groups}" var="group">
+		<span class="label label-default">所有项目列表</span>
+		<c:forEach items="${projects}" var="group">
 			<li class="list-group-item">
-				<a href="${ctx}/group/joinGroup?groupId=${group.id}">申请加入团队</a>
+				<a href="${ctx}/group/joinGroup?groupId=${group.id}">申请加入该群</a>
 				<div class="col-sm-4">
 					组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a>
 				</div>

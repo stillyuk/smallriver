@@ -10,6 +10,6 @@ import cn.zucc.graduation.entity.ProjectResource;
 
 public interface ProjectResourceDao extends PagingAndSortingRepository<ProjectResource, Long>, JpaSpecificationExecutor<ProjectResource> {
 
-	@Query("select g from GroupResource g join g.group p on p.id = ?1")
-	List<ProjectResource> findGroupResourceByGroupId(Long groupId);
+	@Query("select g from ProjectResource g join g.project p on p.id = ?1")
+	List<ProjectResource> findProjectResourceByProjectId(Long projectId);
 }

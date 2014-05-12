@@ -21,8 +21,8 @@ public class GroupResourceService {
 		return projectResourceDao.save(groupResource);
 	}
 
-	public List<ProjectResource> getAllGroupResource(Long groupId) {
-		return projectResourceDao.findGroupResourceByGroupId(groupId);
+	public List<ProjectResource> getAllGroupResource(Long projectId) {
+		return projectResourceDao.findProjectResourceByProjectId(projectId);
 	}
 
 	public ProjectResource getGroupResource(long groupResourceId) {

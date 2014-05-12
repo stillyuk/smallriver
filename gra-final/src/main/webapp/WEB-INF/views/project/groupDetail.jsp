@@ -28,7 +28,7 @@
 	</ol>
 	<ul class="list-group">
 		<li class="list-group-item">组名：${group.groupName}</li>
-		<li class="list-group-item">创建时间：${group.date}</li>
+		<li class="list-group-item">创建时间：${group.createDate}</li>
 		<li class="list-group-item">现在人数：${groupSize}<a href="${ctx}/group/allMembers?groupId=${group.id}">查看所有成员</a></li>
 		<li class="list-group-item">管理员：<a href="${ctx}/user/info?userId=${group.manager.id}">${group.manager.loginName}</a></li>
 		<li class="list-group-item">

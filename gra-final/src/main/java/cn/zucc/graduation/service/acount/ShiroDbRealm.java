@@ -29,7 +29,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private HashedCredentialsMatcher hashedCredentialsMatcher;
 

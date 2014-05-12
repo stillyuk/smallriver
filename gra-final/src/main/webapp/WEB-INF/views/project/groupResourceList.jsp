@@ -9,10 +9,10 @@
 </head>
 <body>
 	<ul class="list-group">
-		<span class="label label-default">群资源信息</span>
-		<c:forEach items="${groupResources}" var="groupResource">
+		<span class="label label-default">工程资源信息</span>
+		<c:forEach items="${projectResources}" var="projectResource">
 			<li class="list-group-item">资源名：
-				<a href="${ctx}/group/groupResourceDetail?groupResourceId=${groupResource.id}">${groupResource.name}</a>
+				<a href="${ctx}/group/groupResourceDetail?groupResourceId=${projectResource.id}">${projectResource.projectName}</a>
 			</li>
 		</c:forEach>
 	</ul>
