@@ -16,6 +16,7 @@ import cn.zucc.graduation.entity.Group;
 import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
+import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.project.ProjectService;
 import cn.zucc.graduation.utils.PropUtil;
@@ -27,7 +28,8 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectService projectService;
-
+	@Autowired
+	private GroupService groupService;
 	@Autowired
 	private ProjectResourceService projectResourceService;
 
@@ -40,22 +42,21 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String create() {
+	public String create(Model model) {
+		List<Group> ownGroups = groupService.getGroupsByOwnerId(ShiroUserUtil.getCurrentUserId());
+		model.addAttribute("ownGroups", ownGroups);
+		model.addAttribute("groupSize", ownGroups.size());
 		return "project/addProjectForm";
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String doCreate(Project project, Model model) {
-		Long userId = ShiroUserUtil.getCurrentUserId();
-		User user = new User(userId);
-		Group group = new Group();
-		group.setManager(user);
-		group.setUsers(Arrays.asList(user));
+	public String doCreate(Project project, String groupName, Model model) {
+		Group group = groupService.getGroupByGroupName(groupName);
 		project.setGroup(group);
 		project.setDate(new Date());
 		projectService.save(project);
 		model.addAttribute("message", "项目" + project.getProjectName() + "创建成功");
-		List<Project> projects = projectService.findProjectsByUserId(userId);
+		List<Project> projects = projectService.findProjectsByUserId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("projects", projects);
 		return "project/projectList";
 	}

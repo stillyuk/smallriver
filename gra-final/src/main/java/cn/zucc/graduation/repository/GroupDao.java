@@ -13,6 +13,8 @@ import cn.zucc.graduation.entity.User;
 
 public interface GroupDao extends PagingAndSortingRepository<Group, Long>, JpaSpecificationExecutor<Group> {
 
+	public List<Group> getGroupByGroupName(String groupName);
+
 	@Modifying
 	@Query("select u from User u left join u.groups g where g.id=?1")
 	public List<User> findUsersByGroupId(Long groupId);
@@ -27,5 +29,7 @@ public interface GroupDao extends PagingAndSortingRepository<Group, Long>, JpaSp
 	@Query("select g from Group g join fetch g.users u where g.id=?1 and u.id=?2")
 	public List<Group> isGroupMemberQueryByUserId(Long groupId, Long currentUserId);
 
-	public List<Group> getGroupByGroupName(String groupName);
+	@Modifying
+	@Query("select g from Group g join fetch g.manager m where m.id=?1")
+	public List<Group> getGroupsByOwnerId(Long managerId);
 }

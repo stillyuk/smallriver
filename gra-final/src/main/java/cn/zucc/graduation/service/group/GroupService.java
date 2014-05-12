@@ -81,4 +81,8 @@ public class GroupService {
 		}
 		return null;
 	}
+
+	public List<Group> getGroupsByOwnerId(Long currentUserId) {
+		return groupDao.getGroupsByOwnerId(currentUserId);
+	}
 }

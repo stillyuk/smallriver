@@ -15,7 +15,6 @@
 	</ol>
 	<form id="inputForm" action="${ctx}/group/create" method="post" class="form-horizontal">
 		<fieldset>
-<!-- 			<legend><small>添加群组</small></legend> -->
 			<div class="form-group">
 				<label for="groupName" class="col-sm-2 control-label">团队名:</label>
 				<div class="col-sm-3">
