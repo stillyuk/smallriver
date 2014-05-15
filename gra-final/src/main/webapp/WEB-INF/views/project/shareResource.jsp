@@ -10,9 +10,9 @@
 </head>
 <body>
 	<ol class="breadcrumb">
-		<li><a href="${ctx}/group">群组</a></li>
-		<li><a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a></li>
-		<li class="active">共享资源</li>
+		<li><a href="${ctx}/group">团队</a></li>
+		<li><a href="${ctx}/group/groupDetail?groupId=${project.id}">${project.projectName}</a></li>
+		<li class="active">共享团队资源</li>
 	</ol>
 	<c:if test="${not empty message}">
 		<div class="alert alert-success">
@@ -114,7 +114,7 @@
 	<script src="${ctx}/static/fileupload/jquery.fileupload-ui.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$('#fileupload').fileupload({
-			url : "${ctx}/group/saveResource"
+			url : "${ctx}/project/saveResource?projectId=${project.id}"
 		});
 	</script>
 </body>

@@ -25,7 +25,7 @@
 	<ul class="list-group">
 		<span class="label label-default">所在团队列表</span>
 		<c:forEach items="${groups}" var="group">
-			<li class="list-group-item">组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a></li>
+			<li class="list-group-item">团队名称：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a></li>
 		</c:forEach>
 	</ul>
 </body>

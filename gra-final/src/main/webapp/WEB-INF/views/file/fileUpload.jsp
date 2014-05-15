@@ -9,9 +9,12 @@
 </head>
 <body>
 	<div class="alert alert-info">
-		一共上传了${total}个文件
+		一共上传了${total}个文件 <a href="${ctx}/file/download">查看所有上传的文件</a>
 		<button class="close" data-dismiss="alert">×</button>
 	</div>
+	<ol class="breadcrumb">
+		<li class="active">文件上传</li>
+	</ol>
 	<c:if test="${not empty message}">
 		<div class="alert alert-success">
 			${message}

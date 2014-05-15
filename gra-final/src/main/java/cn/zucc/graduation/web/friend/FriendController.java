@@ -62,7 +62,7 @@ public class FriendController {
 			message.setDate(new Date());
 			message.setContent(from.getLoginName() + "同意添加你为好友");
 			message.setMessageFromType(MessageType.SYSTEM);
-			message.setMessageToType(MessageType.ADD_FRIEND);
+			message.setMessageToType(MessageType.SYSTEM);
 			messageService.save(message);
 		}
 		Message message = messageService.getMessage(messageId);

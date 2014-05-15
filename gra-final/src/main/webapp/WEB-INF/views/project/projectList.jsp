@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>group</title>
+<title>项目</title>
 </head>
 <body>
 	<c:if test="${not empty message}">
@@ -24,8 +24,8 @@
 	<div style="height: 50px;"></div>
 	<ul class="list-group">
 		<span class="label label-default">所在团队列表</span>
-		<c:forEach items="${groups}" var="group">
-			<li class="list-group-item">组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a></li>
+		<c:forEach items="${projects}" var="project">
+			<li class="list-group-item">组名：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a></li>
 		</c:forEach>
 	</ul>
 </body>

@@ -41,7 +41,11 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String create(Model model) {
+	public String create(Long groupId, Model model) {
+		if (groupId != null) {
+			Group group = groupService.getGroup(groupId);
+			model.addAttribute("group", group);
+		}
 		List<Group> ownGroups = groupService.getGroupsByOwnerId(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("ownGroups", ownGroups);
 		model.addAttribute("groupSize", ownGroups.size());
@@ -70,9 +74,7 @@ public class ProjectController {
 	@RequestMapping(value = "projectDetail")
 	public String projectDetail(Long projectId, Model model) {
 		Project project = projectService.getProject(projectId);
-		List<User> users = project.getGroup().getUsers();
 		model.addAttribute("project", project);
-		model.addAttribute("projectSize", users.size());
 		boolean isMember = projectService.isProjectMemberQueryByUserId(projectId, ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("isMember", isMember);
 		return "project/projectDetail";

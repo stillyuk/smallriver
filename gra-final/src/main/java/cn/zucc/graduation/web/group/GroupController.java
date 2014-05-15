@@ -67,6 +67,7 @@ public class GroupController {
 		List<User> users = group.getUsers();
 		model.addAttribute("group", group);
 		model.addAttribute("groupSize", users.size());
+		model.addAttribute("projectSize", group.getProjects().size());
 		boolean isMember = groupService.isGroupMemberQueryByUserId(groupId, ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("isMember", isMember);
 		return "group/groupDetail";

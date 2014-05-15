@@ -18,25 +18,33 @@
 	</c:if>
 	<div style="clear: both;"></div>
 	<div class="btn-group pull-right">
-		<a class="btn active" href="${ctx}/group/shareResource?groupId=${group.id}">共享资源</a>
-		<a class="btn btn-primary" href="${ctx}/group/listGroupResource?groupId=${group.id}">查看群资源</a>
+		<a class="btn btn-primary" href="${ctx}/project/listProjectResource?groupId=${group.id}">查看项目</a>
 	</div>
 	<div style="height: 40px;"></div>
 	<ol class="breadcrumb">
-		<li><a href="${ctx}/group">群组</a></li>
+		<li><a href="${ctx}/group">团队</a></li>
 		<li class="active">${group.groupName}</li>
 	</ol>
 	<ul class="list-group">
 		<li class="list-group-item">组名：${group.groupName}</li>
 		<li class="list-group-item">创建时间：${group.date}</li>
-		<li class="list-group-item">现在人数：${groupSize}<a href="${ctx}/group/allMembers?groupId=${group.id}">查看所有成员</a></li>
+		<li class="list-group-item">现在人数：${groupSize}<a href="${ctx}/group/allMembers?groupId=${group.id}"> 查看所有成员</a></li>
+		<li class="list-group-item">
+			项目：${projectSize}
+			<c:if test="${projectSize gt 0}">
+				<a href="${ctx}/group/allMembers?groupId=${group.id}"> 查看管理的项目</a>
+			</c:if>
+			<c:if test="${projectSize eq 0}">
+				<a href="${ctx}/project/create?groupId=${group.id}"> 新建项目</a>
+			</c:if>
+		</li>
 		<li class="list-group-item">管理员：<a href="${ctx}/user/info?userId=${group.manager.id}">${group.manager.loginName}</a></li>
 		<li class="list-group-item">
 			<c:if test="${isMember}">
-				已经是群组成员了^_^
+				已经是团队成员了^_^
 			</c:if>
 			<c:if test="${!isMember}">
-				<a href="${ctx}/group/joinGroup?groupId=${group.id}">添加到群组</a>
+				<a href="${ctx}/group/joinGroup?groupId=${group.id}">添加到团队</a>
 			</c:if>
 		</li>
 	</ul>

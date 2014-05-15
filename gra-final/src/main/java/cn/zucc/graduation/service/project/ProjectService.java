@@ -26,8 +26,7 @@ public class ProjectService {
 	}
 
 	public List<Project> findProjectsByUserId(Long userId) {
-		projectDao.findProjectsByUserId(userId);
-		return null;
+		return projectDao.findProjectsByUserId(userId);
 	}
 
 	public void save(Project project) {

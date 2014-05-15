@@ -30,13 +30,13 @@
 					<i class="icon-user"></i>
 					<span id="choiceGroup">
 						<c:choose>
-							<c:when test="${not empty user}">${user.loginName}</c:when>
+							<c:when test="${not empty group}">${group.groupName}</c:when>
 							<c:otherwise>选择团队</c:otherwise>
 						</c:choose>
 					</span>
 					<span class="caret"></span>
 				</a>
-				<input id="groupName" name="groupName" type="hidden" value="${user.loginName}" />
+				<input id="groupName" name="groupName" type="hidden" value="${group.groupName}" />
 				<ul class="dropdown-menu">
 					<c:forEach items="${ownGroups}" var="ownGroup">
 						<li onclick="select(this);"><a href="#">${ownGroup.groupName}</a></li>
