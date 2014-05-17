@@ -21,7 +21,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="${ctx}">首页</a></li>
 						<li><a href="${ctx}/friend">好友</a></li>
-						<li><a href="${ctx}/file/upload">资源</a></li>
+						<li><a href="${ctx}/file/upload">个人资源</a></li>
 						<li><a href="${ctx}/group">团队</a></li>
 						<li><a href="${ctx}/project">项目</a></li>
 					</ul>

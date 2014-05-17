@@ -8,11 +8,15 @@
 <title>详细信息</title>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li><a href="${ctx}/group">团队</a></li>
+		<li class="active">所有项目</li>
+	</ol>
 <!-- 	<button class="btn" onclick="history.back()">返回</button> -->
 	<ul class="list-group">
-		<li class="list-group-item">团队总数：${userSize}</li>
-		<c:forEach items="${users}" var="user">
-			<li class="list-group-item">用户名称：<a href="${ctx}/user/info?userId=${user.id}">${user.loginName}</a></li>
+		<li class="list-group-item">项目总数：${projectSize}</li>
+		<c:forEach items="${projects}" var="project">
+			<li class="list-group-item">项目名称：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a></li>
 		</c:forEach>
 	</ul>
 </body>

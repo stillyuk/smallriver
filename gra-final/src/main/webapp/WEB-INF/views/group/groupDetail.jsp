@@ -32,7 +32,7 @@
 		<li class="list-group-item">
 			项目：${projectSize}
 			<c:if test="${projectSize gt 0}">
-				<a href="${ctx}/group/allMembers?groupId=${group.id}"> 查看管理的项目</a>
+				<a href="${ctx}/group/allProjects?groupId=${group.id}"> 查看管理的项目</a>
 			</c:if>
 			<c:if test="${projectSize eq 0}">
 				<a href="${ctx}/project/create?groupId=${group.id}"> 新建项目</a>
@@ -48,6 +48,6 @@
 			</c:if>
 		</li>
 	</ul>
-	<button class="btn" onclick="history.back()">返回</button>
+<!-- 	<button class="btn" onclick="history.back()">返回</button> -->
 </body>
 </html>

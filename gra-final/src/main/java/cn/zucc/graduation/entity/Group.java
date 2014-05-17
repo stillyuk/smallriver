@@ -66,7 +66,7 @@ public class Group extends GeneralEntity {
 		this.manager = manager;
 	}
 
-	@OneToMany
+	@OneToMany(mappedBy = "group")
 	@Column(name = "group_id")
 	public List<Project> getProjects() {
 		return projects;

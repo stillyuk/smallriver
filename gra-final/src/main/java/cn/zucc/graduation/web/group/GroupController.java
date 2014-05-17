@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.zucc.graduation.entity.Group;
+import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.groupresource.GroupResourceService;
@@ -22,7 +23,6 @@ public class GroupController {
 
 	@Autowired
 	private GroupService groupService;
-
 	@Autowired
 	private GroupResourceService groupResourceService;
 
@@ -73,12 +73,21 @@ public class GroupController {
 		return "group/groupDetail";
 	}
 
+	@RequestMapping(value = "allProjects")
+	public String allProjects(Long groupId, Model model) {
+		Group group = groupService.getGroup(groupId);
+		List<Project> projects = group.getProjects();
+		model.addAttribute("projects", projects);
+		model.addAttribute("projectSize", projects.size());
+		return "group/allProjects";
+	}
+
 	@RequestMapping(value = "allMembers")
 	public String allMembers(Long groupId, Model model) {
 		Group group = groupService.getGroup(groupId);
 		List<User> users = group.getUsers();
 		model.addAttribute("users", users);
-		model.addAttribute("groupSize", users.size());
+		model.addAttribute("userSize", users.size());
 		return "group/allMembers";
 	}
 
