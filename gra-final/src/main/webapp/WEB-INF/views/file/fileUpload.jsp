@@ -8,13 +8,19 @@
 <link rel="stylesheet" href="${ctx}/static/styles/jquery.fileupload.css" />
 </head>
 <body>
-	<div class="alert alert-info">
-		一共上传了${total}个文件 <a href="${ctx}/file/download">查看所有上传的文件</a>
-		<button class="close" data-dismiss="alert">×</button>
+	<div>
+		<ul class="nav nav-pills">
+	 		<li class="active"><a href="${ctx}/file/upload">文件上传<span class="badge">${size}</span></a></li>
+			<li><a href="${ctx}/file/download">文件下载</a></li>
+		</ul>
 	</div>
 	<ol class="breadcrumb">
-		<li class="active">文件上传</li>
+		<li class="active">文件上传 已上传M</li>
 	</ol>
+<%-- 	<div class="alert alert-info">
+		一共上传了${total}个文件 <a href="${ctx}/file/download">查看所有上传的文件</a>
+		<button class="close" data-dismiss="alert">×</button>
+	</div> --%>
 	<c:if test="${not empty message}">
 		<div class="alert alert-success">
 			${message}

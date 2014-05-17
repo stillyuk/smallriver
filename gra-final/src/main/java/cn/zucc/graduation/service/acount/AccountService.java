@@ -1,6 +1,5 @@
 package cn.zucc.graduation.service.acount;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,8 +28,6 @@ public class AccountService {
 	private UserDao userDao;
 
 	public User save(User user) {
-		user.setDate(new Date());
-		user.setRoles("user");
 		return userDao.save(user);
 	}
 

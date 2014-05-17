@@ -3,6 +3,7 @@ package cn.zucc.graduation.entity;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -31,6 +33,8 @@ public class User extends GeneralEntity {
 	private Boolean isActivate = false;
 	private String roles;
 	private List<Group> groups;
+
+	private UserDetailInfo userDetailInfo;
 
 	public User() {
 	}
@@ -130,4 +134,15 @@ public class User extends GeneralEntity {
 	public String toString() {
 		return loginName;
 	}
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.ALL})
+	@JoinColumn(name = "user_id")
+	public UserDetailInfo getUserDetailInfo() {
+		return userDetailInfo;
+	}
+
+	public void setUserDetailInfo(UserDetailInfo userDetailInfo) {
+		this.userDetailInfo = userDetailInfo;
+	}
+
 }

@@ -17,6 +17,7 @@ public class Resource extends GeneralEntity {
 	private User user;
 	private int downloadTimes;
 	private String location;
+	private long fileSize;
 
 	@Id
 	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
@@ -61,5 +62,13 @@ public class Resource extends GeneralEntity {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public long getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
 }

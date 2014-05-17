@@ -1,6 +1,7 @@
 package cn.zucc.graduation.web.resouce;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class FileUploadController {
 
 	@Autowired
 	private ResouceService resouceService;
-
 	@Autowired
 	private AccountService accountService;
 
@@ -43,12 +43,19 @@ public class FileUploadController {
 		if (!path.exists()) {
 			path.mkdirs();
 		}
-		file.transferTo(new File(location + getCurrentUserLoginName() + "/" + file.getOriginalFilename()));
+		String fileName = file.getOriginalFilename();
+		File to = new File(location + getCurrentUserLoginName() + "/" + fileName);
+		while (to.exists()) {
+			fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + fileName;
+			to = new File(location + getCurrentUserLoginName() + "/" + fileName);
+		}
+		file.transferTo(to);
 		Resource resource = new Resource();
-		resource.setName(file.getOriginalFilename());
+		resource.setName(fileName);
 		resource.setLocation(location + getCurrentUserLoginName());
 		resource.setDate(new Date());
 		resource.setUser(accountService.getUser(getCurrentUserId()));
+		resource.setFileSize(file.getSize());
 		resouceService.saveResource(resource);
 		model.addAttribute("message", "上传成功");
 		return "file/fileUpload";

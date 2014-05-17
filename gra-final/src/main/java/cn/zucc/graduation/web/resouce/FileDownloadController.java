@@ -36,6 +36,7 @@ public class FileDownloadController {
 		Long userId = ShiroUserUtil.getCurrentUserId();
 		List<Resource> resources = resouceService.getResourceByUserId(userId);
 		model.addAttribute("resources", resources);
+		model.addAttribute("size", resources.size());
 		return "file/fileDownload";
 	}
 

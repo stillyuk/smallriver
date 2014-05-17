@@ -36,10 +36,17 @@
 <body>
 	<ul class="list-group">
 		<li class="list-group-item">消息内容：${message.content}</li>
-		<li class="list-group-item">发送用户：<a
-			href="${ctx}/user/info?userId=${message.from.id}">${message.from.loginName}</a></li>
-		<li class="list-group-item">发送日期： <fmt:formatDate
-				value="${message.date}" pattern="yyyy年MM月dd日" />
+		<li class="list-group-item">发送用户：
+			<c:choose>
+				<c:when test="${message.messageFromType eq 'system'}">
+					系统消息
+				</c:when>
+				<c:otherwise>
+					<a href="${ctx}/user/info?userId=${message.from.id}">${message.from.loginName}</a>
+				</c:otherwise>
+			</c:choose>
+		</li>
+		<li class="list-group-item">发送日期： <fmt:formatDate value="${message.date}" pattern="yyyy年MM月dd日" />
 		</li>
 		<c:if test="${message.isRead}">
 			<div class="alert alert-danger">
@@ -59,6 +66,11 @@
 					<button class="btn" value="no" onclick="replyAddGroup(this)">拒绝</button>
 				</li>
 			</c:if>
+		</c:if>
+		<c:if test="${message.messageFromType ne 'system'}">
+			<li class="list-group-item">
+			<a class="btn btn-primary" href="${ctx}/message/sendMessage?toId=${message.from.id}">回复${message.from.loginName}</a>
+		</li>
 		</c:if>
 	</ul>
 </body>

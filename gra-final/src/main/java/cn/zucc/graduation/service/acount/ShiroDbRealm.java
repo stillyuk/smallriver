@@ -1,6 +1,7 @@
 package cn.zucc.graduation.service.acount;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -38,6 +39,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		password = new Md5Hash(password).toHex();
 		User user = accountService.queryByLoginNameAndPassword(token.getUsername(), password);
 		if (user != null && user.getIsActivate() == true) {
+			user.getUserDetailInfo().setLastLoginTime(new Date());
+			accountService.updateUser(user);
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getName(), user.getLoginName()), user.getPassword(), getName());
 		}
 		return null;
@@ -53,7 +56,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
 	@PostConstruct
 	public void initCredentialsMatcher() {
-		setCredentialsMatcher(hashedCredentialsMatcher);
+		this.setCredentialsMatcher(hashedCredentialsMatcher);
 	}
 
 	public static class ShiroUser implements Serializable {
