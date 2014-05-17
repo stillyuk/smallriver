@@ -2,17 +2,19 @@ package cn.zucc.graduation.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -25,8 +27,8 @@ public class Group extends GeneralEntity {
 	private List<Project> projects;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator")
-	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_GROUP_SEQUENCE")
 	public Long getId() {
 		return id;
 	}
@@ -64,7 +66,8 @@ public class Group extends GeneralEntity {
 		this.manager = manager;
 	}
 
-	@OneToMany(mappedBy = "group")
+	@OneToMany
+	@Column(name = "group_id")
 	public List<Project> getProjects() {
 		return projects;
 	}

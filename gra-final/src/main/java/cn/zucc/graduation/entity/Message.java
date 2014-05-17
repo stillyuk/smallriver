@@ -2,12 +2,13 @@ package cn.zucc.graduation.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -22,8 +23,8 @@ public class Message extends GeneralEntity {
 	private Boolean isRead = false;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator")
-	@GenericGenerator(name = "nativeGenerator", strategy = "native")
+	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_MESSAGE_SEQUENCE")
 	public Long getId() {
 		return id;
 	}
