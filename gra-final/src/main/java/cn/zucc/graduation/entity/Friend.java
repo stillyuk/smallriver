@@ -17,8 +17,8 @@ public class Friend extends GeneralEntity {
 	private User to;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_FRIEND_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_FRIEND_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

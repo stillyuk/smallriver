@@ -20,8 +20,8 @@ public class Discuss extends GeneralEntity {
 	private User replyTo;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_DISCUSS_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_DISCUSS_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

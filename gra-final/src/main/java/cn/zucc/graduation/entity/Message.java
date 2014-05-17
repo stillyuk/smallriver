@@ -23,8 +23,8 @@ public class Message extends GeneralEntity {
 	private Boolean isRead = false;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_MESSAGE_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_MESSAGE_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

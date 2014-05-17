@@ -21,8 +21,8 @@ public class Project extends GeneralEntity {
 	private List<ProjectResource> projectResource;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_PROJECT_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_PROJECT_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

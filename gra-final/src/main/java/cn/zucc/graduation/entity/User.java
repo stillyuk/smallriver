@@ -44,8 +44,8 @@ public class User extends GeneralEntity {
 	}
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_USER_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_USER_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

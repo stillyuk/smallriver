@@ -27,8 +27,8 @@ public class Group extends GeneralEntity {
 	private List<Project> projects;
 
 	@Id
-	@GeneratedValue(generator = "nativeGenerator", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "nativeGenerator", sequenceName = "GRA_GROUP_SEQUENCE")
+	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "sequence", sequenceName = "GRA_GROUP_SEQUENCE")
 	public Long getId() {
 		return id;
 	}

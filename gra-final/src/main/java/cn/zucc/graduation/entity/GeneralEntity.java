@@ -9,7 +9,6 @@ import javax.persistence.MappedSuperclass;
 public class GeneralEntity {
 	private String discription;
 	private Date date;
-	private String reserve;
 
 	public String getDiscription() {
 		return discription;
@@ -26,13 +25,5 @@ public class GeneralEntity {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public String getReserve() {
-		return reserve;
-	}
-
-	public void setReserve(String reserve) {
-		this.reserve = reserve;
 	}
 }
