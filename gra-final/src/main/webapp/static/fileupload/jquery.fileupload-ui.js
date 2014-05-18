@@ -27,10 +27,11 @@
     } else {
         // Browser globals:
         factory(
-            window.jQuery
+            window.jQuery,
+            window.tmpl
         );
     }
-}(function ($) {
+}(function ($, tmpl) {
     'use strict';
 
     $.blueimp.fileupload.prototype._specialOptions.push(
@@ -469,9 +470,11 @@
             if (!func) {
                 return $();
             }
-            var result = func.render(
-                files
-            );
+            var result = func({
+                files: files,
+                formatFileSize: this._formatFileSize,
+                options: this.options
+            });
             if (result instanceof $) {
                 return result;
             }
@@ -638,12 +641,12 @@
             options.templatesContainer = this.document[0].createElement(
                 options.filesContainer.prop('nodeName')
             );
-            if ($.templates) {
+            if (tmpl) {
                 if (options.uploadTemplateId) {
-                    options.uploadTemplate = $.templates("#" + options.uploadTemplateId);
+                    options.uploadTemplate = tmpl(options.uploadTemplateId);
                 }
                 if (options.downloadTemplateId) {
-                    options.downloadTemplate = $.templates("#" + options.downloadTemplateId);
+                    options.downloadTemplate = tmpl(options.downloadTemplateId);
                 }
             }
         },

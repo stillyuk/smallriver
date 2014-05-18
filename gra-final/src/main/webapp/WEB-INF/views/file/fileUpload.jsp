@@ -11,11 +11,11 @@
 	<div>
 		<ul class="nav nav-pills">
 	 		<li class="active"><a href="${ctx}/file/upload">文件上传<span class="badge">${size}</span></a></li>
-			<li><a href="${ctx}/file/download">文件下载</a></li>
+			<li><a href="${ctx}/file/download">文件列表</a></li>
 		</ul>
 	</div>
 	<ol class="breadcrumb">
-		<li class="active">文件上传 已上传M</li>
+		<li class="active">文件上传（已上传${usedSpace}M，总共容量${diskSpace}M）</li>
 	</ol>
 <%-- 	<div class="alert alert-info">
 		一共上传了${total}个文件 <a href="${ctx}/file/download">查看所有上传的文件</a>
@@ -57,63 +57,83 @@
 	    </form>
 	    <br>
 	</div>
-	<script id="template-upload" type="text/x-jsrender">
-		{{ for files }}
-    		<tr class="template-upload fade">
-    		    <td>
-					<span class="preview"></span>
-				</td>
-				<td>
-					<p class="name">{{:name}}</p>
-					<strong class="error text-danger"></strong>
-				</td>
-				<td>
-					<p class="size">Processing...</p>
-					<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-				</td>
-				<td>
-					<button class="btn btn-primary start" disabled>
-						<i class="glyphicon glyphicon-upload"></i>
-						<span>Start</span>
-					</button>
-					<button class="btn btn-warning cancel">
-						<i class="glyphicon glyphicon-ban-circle"></i>
-						<span>Cancel</span>
-					</button>
-				</td>
-			</tr>
-		{{ /for }}
-	</script>
-	<script id="template-download" type="text/x-jsrender">
-		{{ for files }}
-    		<tr class="template-upload fade">
-    		    <td>
-					<span class="preview"></span>
-				</td>
-				<td>
-					<p class="name">{{:name}}</p>
-					<strong class="error text-danger"></strong>
-				</td>
-				<td>
-					<p class="size">上传成功</p>
-					<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-				</td>
-				<td>
-					<button class="btn btn-primary start" disabled>
-						<i class="glyphicon glyphicon-upload"></i>
-						<span>Start</span>
-					</button>
-					<button class="btn btn-warning cancel">
-						<i class="glyphicon glyphicon-ban-circle"></i>
-						<span>Cancel</span>
-					</button>
-				</td>
-			</tr>
-		{{ /for }}
-	</script>
-	<script src="${ctx}/static/fileupload/jsrender.js" type="text/javascript"></script>
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" disabled>
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start</span>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                    <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+			{% if (file.error) { %}
+                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+<%-- 	<script src="${ctx}/static/fileupload/jsrender.js" type="text/javascript"></script> --%>
 	<script src="${ctx}/static/fileupload/jquery.ui.widget.js" type="text/javascript"></script>
 	<script src="${ctx}/static/fileupload/load-image.min.js" type="text/javascript"></script>
+	<script src="${ctx}/static/fileupload/tmpl.js"></script>
 	<script src="${ctx}/static/fileupload/jquery.iframe-transport.js" type="text/javascript"></script>
 	<script src="${ctx}/static/fileupload/jquery.fileupload.js" type="text/javascript"></script>
 	<script src="${ctx}/static/fileupload/jquery.fileupload-process.js" type="text/javascript"></script>
@@ -121,7 +141,10 @@
 	<script src="${ctx}/static/fileupload/jquery.fileupload-ui.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$('#fileupload').fileupload({
-			url : "${ctx}/file/upload/"
+			url : "${ctx}/file/upload/",
+			done : function(e, result) {
+				alert(result.result.message);
+			}
 		});
 	</script>
 </body>

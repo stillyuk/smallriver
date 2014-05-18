@@ -1,6 +1,8 @@
 package cn.zucc.graduation.service.acount;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -39,6 +41,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		password = new Md5Hash(password).toHex();
 		User user = accountService.queryByLoginNameAndPassword(token.getUsername(), password);
 		if (user != null && user.getIsActivate() == true) {
+			DateFormat df = new SimpleDateFormat("yyyyMMdd");
+			try {
+				String lastLogin = df.format(user.getUserDetailInfo().getLastLoginTime());
+				String now = df.format(new Date());
+				if (!lastLogin.equals(now)) {
+					user.getUserDetailInfo().setLoginDays(user.getUserDetailInfo().getLoginDays() + 1);
+				}
+			} catch (Exception t) {
+				user.getUserDetailInfo().setLoginDays(1);
+			}
+			int loginDays = user.getUserDetailInfo().getLoginDays();
+			user.getUserDetailInfo().setUserLevel(Level.computeLevel(loginDays));
 			user.getUserDetailInfo().setLastLoginTime(new Date());
 			accountService.updateUser(user);
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(), user.getName(), user.getLoginName()), user.getPassword(), getName());

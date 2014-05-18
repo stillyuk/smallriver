@@ -9,7 +9,7 @@
 </head>
 <body>
 	<ul class="list-group">
-		<span class="label label-default">工程资源信息</span>
+		<span class="label label-default">项目资源信息</span>
 		<c:forEach items="${projectResources}" var="projectResource">
 			<li class="list-group-item">资源名：
 				<a href="${ctx}/group/groupResourceDetail?groupResourceId=${projectResource.id}">${projectResource.projectName}</a>

@@ -136,7 +136,6 @@ public class User extends GeneralEntity {
 	}
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.ALL})
-	@JoinColumn(name = "user_id")
 	public UserDetailInfo getUserDetailInfo() {
 		return userDetailInfo;
 	}
@@ -144,5 +143,4 @@ public class User extends GeneralEntity {
 	public void setUserDetailInfo(UserDetailInfo userDetailInfo) {
 		this.userDetailInfo = userDetailInfo;
 	}
-
 }

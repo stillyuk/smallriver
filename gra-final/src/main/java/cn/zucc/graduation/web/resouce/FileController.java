@@ -6,14 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.zucc.graduation.service.acount.AccountService;
-import cn.zucc.graduation.service.resource.ResouceService;
+import cn.zucc.graduation.service.resource.ResourceService;
 
 @Controller
 @RequestMapping("/file")
 public class FileController {
 
 	@Autowired
-	private ResouceService resouceService;
+	private ResourceService resouceService;
 
 	@Autowired
 	private AccountService accountService;

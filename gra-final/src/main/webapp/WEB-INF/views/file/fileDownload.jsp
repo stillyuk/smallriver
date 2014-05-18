@@ -11,7 +11,7 @@
 	<div>
 		<ul class="nav nav-pills">
 	 		<li><a href="${ctx}/file/upload">文件上传</a></li>
-			<li class="active"><a href="${ctx}/file/download">文件下载</a></li>
+			<li class="active"><a href="${ctx}/file/download">文件列表</a></li>
 		</ul>
 	</div>
 <!-- 	<ol class="breadcrumb">

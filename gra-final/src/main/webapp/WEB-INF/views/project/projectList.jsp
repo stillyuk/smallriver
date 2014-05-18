@@ -23,9 +23,9 @@
 	</div>
 	<div style="height: 50px;"></div>
 	<ul class="list-group">
-		<span class="label label-default">所在团队列表</span>
+		<span class="label label-default">所在项目列表</span>
 		<c:forEach items="${projects}" var="project">
-			<li class="list-group-item">组名：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a></li>
+			<li class="list-group-item">项目名称：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a></li>
 		</c:forEach>
 	</ul>
 </body>

@@ -45,4 +45,7 @@ public class ProjectService {
 		return false;
 	}
 
+	public Project getProjectByProjectName(String projectName) {
+		return projectDao.getProjectByProjectName(projectName);
+	}
 }

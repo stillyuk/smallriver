@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.Resource;
 import cn.zucc.graduation.service.project.ProjectResourceService;
-import cn.zucc.graduation.service.resource.ResouceService;
+import cn.zucc.graduation.service.project.ProjectService;
+import cn.zucc.graduation.service.resource.ResourceService;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
@@ -26,8 +28,9 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 public class FileDownloadController {
 
 	@Autowired
-	private ResouceService resouceService;
-
+	private ResourceService resouceService;
+	@Autowired
+	private ProjectService projectService;
 	@Autowired
 	private ProjectResourceService projectResourceService;
 
@@ -40,15 +43,17 @@ public class FileDownloadController {
 		return "file/fileDownload";
 	}
 
-	@RequestMapping(value = "detail")
-	public String downloadForm(Long resourceId, Model Model) {
+	@RequestMapping(value = "/detail")
+	public String resourceDetail(Long resourceId, Model model) {
 		Long userId = ShiroUserUtil.getCurrentUserId();
 		Resource resource = resouceService.getResourceByResourceIdAndUserId(userId, resourceId);
-		Model.addAttribute("resource", resource);
+		List<Project> projects = projectService.findProjectsByUserId(userId);
+		model.addAttribute("projects", projects);
+		model.addAttribute("resource", resource);
 		return "file/fileDownloadDetail";
 	}
 
-	@RequestMapping(value = "{resouceId}")
+	@RequestMapping(value = "/{resouceId}")
 	public ResponseEntity<byte[]> download(@PathVariable("resouceId") Long resourceId) throws Exception {
 		Resource resource = resouceService.getResource(resourceId);
 		resource.setDownloadTimes(resource.getDownloadTimes() + 1);

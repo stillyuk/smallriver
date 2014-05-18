@@ -11,7 +11,7 @@ import cn.zucc.graduation.repository.ResourceDao;
 
 @Service
 @Transactional
-public class ResouceService {
+public class ResourceService {
 
 	@Autowired
 	private ResourceDao resourceDao;

@@ -21,6 +21,8 @@ public interface ProjectDao extends PagingAndSortingRepository<Project, Long>, J
 	@Query("select p from Project p join p.group.users u where p.id=?1 and u.id=?2")
 	public List<Project> isProjectMemberQueryByUserId(Long projectId, Long currentUserId);
 
+	public Project getProjectByProjectName(String projectName);
+
 	/*
 	 * public Project queryByLoginNameAndPassword(String username, String
 	 * password);

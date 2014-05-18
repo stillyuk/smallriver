@@ -24,8 +24,8 @@ public class ProjectResourceService {
 	public List<ProjectResource> getAllProjectResource(long projectId) {
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(projectId);
-		projectResourceDao.findAll(ids);
-		return null;
+		List<ProjectResource> projectResources = (List<ProjectResource>) projectResourceDao.findAll(ids);
+		return projectResources;
 	}
 
 	public ProjectResource getProjectResource(long projectResourceId) {
