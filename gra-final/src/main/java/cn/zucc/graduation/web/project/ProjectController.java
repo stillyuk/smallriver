@@ -1,6 +1,9 @@
 package cn.zucc.graduation.web.project;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.zucc.graduation.entity.Group;
@@ -20,6 +24,10 @@ import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.project.ProjectService;
 import cn.zucc.graduation.utils.PropUtil;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
+
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/project")
@@ -71,6 +79,17 @@ public class ProjectController {
 		return "project/allProjects";
 	}
 
+	@RequestMapping(value = "getAllProjects")
+	@ResponseBody
+	public String getAllProjects(Model model) throws Exception {
+		List<Project> projects = projectService.getAllProjects();
+		OutputStream out = new ByteArrayOutputStream();
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonGenerator jsonGenerator = objectMapper.getFactory().createJsonGenerator(out, JsonEncoding.UTF8);
+		jsonGenerator.writeObject(projects);
+		return out.toString();
+	}
+
 	@RequestMapping(value = "projectDetail")
 	public String projectDetail(Long projectId, Model model) {
 		Project project = projectService.getProject(projectId);
@@ -97,23 +116,34 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "saveResource")
+	@ResponseBody
 	public String saveResource(Long projectId, MultipartFile file) throws Exception {
-		String location = PropUtil.getProperty("projectFile");
-		Project project = projectService.getProject(projectId);
-		File path = new File(location + project.getProjectName());
-		if (!path.exists()) {
-			path.mkdirs();
+		try {
+			String location = PropUtil.getProperty("projectFile");
+			Project project = projectService.getProject(projectId);
+			File path = new File(location + project.getProjectName());
+			if (!path.exists()) {
+				path.mkdirs();
+			}
+			String fileName = file.getOriginalFilename();
+			File to = new File(location + project.getProjectName() + File.separator + fileName);
+			while (to.exists()) {
+				fileName = new SimpleDateFormat("yyyyMMdd_HHmmss_").format(new Date()) + fileName;
+				to = new File(location + project.getProjectName() + File.separator + fileName);
+			}
+			file.transferTo(to);
+			ProjectResource projectResource = new ProjectResource();
+			projectResource.setProject(project);
+			projectResource.setName(file.getOriginalFilename());
+			projectResource.setDate(new Date());
+			projectResource.setLocation(location + project.getProjectName());
+			User user = new User();
+			user.setId(ShiroUserUtil.getCurrentUserId());
+			projectResource.setUploadUser(user);
+			projectResourceService.save(projectResource);
+		} catch (Exception e) {
+			return "{\"message\" : \"上传资源到项目失败\"}";
 		}
-		file.transferTo(new File(location + project.getProjectName() + "/" + file.getOriginalFilename()));
-		ProjectResource projectResource = new ProjectResource();
-		projectResource.setProject(project);
-		projectResource.setName(file.getOriginalFilename());
-		projectResource.setDate(new Date());
-		projectResource.setLocation(location + project.getProjectName());
-		User user = new User();
-		user.setId(ShiroUserUtil.getCurrentUserId());
-		projectResource.setUploadUser(user);
-		projectResourceService.save(projectResource);
-		return "project/shareResource";
+		return "{\"message\" : \"上传资源到项目成功\"}";
 	}
 }

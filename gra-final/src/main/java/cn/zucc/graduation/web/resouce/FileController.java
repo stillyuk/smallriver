@@ -14,7 +14,6 @@ public class FileController {
 
 	@Autowired
 	private ResourceService resouceService;
-
 	@Autowired
 	private AccountService accountService;
 

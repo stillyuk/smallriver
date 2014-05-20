@@ -12,13 +12,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "gra_project")
+@JsonIgnoreProperties({ "group", "projectResources" })
 public class Project extends GeneralEntity {
 	private Long id;
 	private String projectName;
 	private Group group;
-	private List<ProjectResource> projectResource;
+	private List<ProjectResource> projectResources;
 
 	@Id
 	@GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
@@ -51,11 +54,11 @@ public class Project extends GeneralEntity {
 
 	@OneToMany
 	@JoinColumn(name = "projectId")
-	public List<ProjectResource> getGroupResources() {
-		return projectResource;
+	public List<ProjectResource> getProjectResources() {
+		return projectResources;
 	}
 
-	public void setGroupResources(List<ProjectResource> projectResource) {
-		this.projectResource = projectResource;
+	public void setProjectResources(List<ProjectResource> projectResources) {
+		this.projectResources = projectResources;
 	}
 }

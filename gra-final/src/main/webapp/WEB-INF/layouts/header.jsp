@@ -2,6 +2,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<script src="${ctx}/static/fileupload/jsrender.js" type="text/javascript"></script>
+<script type="text/x-jsrender" id="groupTemplate">
+	<li onclick="choiceGroup(this);"><a href="#">{{:groupName}}</a></li>
+</script>
+<script type="text/x-jsrender" id="projectTemplate">
+	<li onclick="choiceProject(this);"><a href="#">{{:projectName}}</a></li>
+</script>
+<script type="text/javascript">
+	var groups, projects;
+	$(function() {
+		$("#group").hide();
+		$("#project").hide();
+		$("#content").focus(function() {
+			if ($("#groups>li").length == 0) {
+				$.ajax({
+					async : false,
+					type : "POST",
+					url : "${ctx}/project/getAllProjects",
+					data : {},
+					success : function(data) {
+						projects = data;
+					},
+					dataType : "json"
+				});
+				$.ajax({
+					async : false,
+					type : "POST",
+					url : "${ctx}/group/getAllGroups",
+					data : {},
+					success : function(data) {
+						groups = data;
+					},
+					dataType : "json"
+				});
+				var groupHtml = $.templates("#groupTemplate").render(groups);
+				var projectHtml = $.templates("#projectTemplate").render(projects);
+				$("#groups").append(groupHtml);
+				$("#projects").append(projectHtml);
+				$("#group").show();
+				$("#project").show();
+			}
+		});
+		$("#content").blur(function() {
+			/* if (!$("#group").is(":hover") && !$("#group").is(":hover")) {
+				$("#groups").remove();
+				$("#projects").remove();
+			} */
+		});
+	});
+	function choiceGroup(t) {
+		$("#allGroups").text($(t).text());
+		$("#groupName").val($(t).text());
+	}
+	function choiceProject(t) {
+		$("#allProjects").text($(t).text());
+		$("#projectName").val($(t).text());
+	}
+</script>
 <div id="header">
 	<div id="title">
 		<shiro:notAuthenticated>
@@ -16,7 +74,6 @@
 						<span class="icon-bar"></span>
 					</button>
 				</div>
-		
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="${ctx}">首页</a></li>
@@ -27,9 +84,26 @@
 					</ul>
 					<form class="navbar-form navbar-left" role="search" action="${ctx}/search">
 						<div class="form-group">
-							<input type="text" name="content" class="form-control" placeholder="Search">
+							<input id="content" type="text" name="content" class="form-control" placeholder="Search">
 						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
+						<div id="group" class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span id="allGroups">所在团队</span> <span class="caret"></span>
+							</button>
+							<input id="groupName" name="groupName" type="hidden" value="" />
+							<ul id="groups" class="dropdown-menu pull-right">
+							</ul>
+						</div>
+						<div id="project" class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span id="allProjects">所在项目 </span><span class="caret"></span>
+							</button>
+							<input id="projectName" name="projectName" type="hidden" value="" />
+							<ul id="projects" class="dropdown-menu pull-right">
+							</ul>
+						</div>
+						<button type="submit" class="btn btn-default">查询</button>
+						<div class="form-group" id="jiang" style="position: absolute;"></div>
 					</form>
 					<span class="btn-group pull-right">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

@@ -17,8 +17,11 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "gra_group")
+@JsonIgnoreProperties({ "users", "manager", "projects" })
 public class Group extends GeneralEntity {
 	private Long id;
 	private String groupName;

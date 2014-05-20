@@ -1,5 +1,7 @@
 package cn.zucc.graduation.web.group;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.zucc.graduation.entity.Group;
 import cn.zucc.graduation.entity.Project;
@@ -16,6 +19,10 @@ import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.groupresource.GroupResourceService;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
+
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/group")
@@ -80,6 +87,17 @@ public class GroupController {
 		model.addAttribute("projects", projects);
 		model.addAttribute("projectSize", projects.size());
 		return "group/allProjects";
+	}
+
+	@RequestMapping(value = "getAllGroups")
+	@ResponseBody
+	public String getAllGroups(Long groupId, Model model) throws Exception {
+		List<Group> groups = groupService.getAllGroups();
+		OutputStream out = new ByteArrayOutputStream();
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonGenerator jsonGenerator = objectMapper.getFactory().createJsonGenerator(out, JsonEncoding.UTF8);
+		jsonGenerator.writeObject(groups);
+		return out.toString();
 	}
 
 	@RequestMapping(value = "allMembers")

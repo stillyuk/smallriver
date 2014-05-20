@@ -1,6 +1,5 @@
 package cn.zucc.graduation.service.project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,10 +21,7 @@ public class ProjectResourceService {
 	private ProjectResourceDao projectResourceDao;
 
 	public List<ProjectResource> getAllProjectResource(long projectId) {
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(projectId);
-		List<ProjectResource> projectResources = (List<ProjectResource>) projectResourceDao.findAll(ids);
-		return projectResources;
+		return projectResourceDao.findProjectResourceByProjectId(projectId);
 	}
 
 	public ProjectResource getProjectResource(long projectResourceId) {

@@ -23,7 +23,7 @@
 	<c:if test="${not empty groups}">
 		<c:forEach items="${groups}" var="group">
 			<div class="alert alert-info">
-				群组：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a>
+				团队：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${group.groupName}</a>
 			</div>
 		</c:forEach>
 	</c:if>

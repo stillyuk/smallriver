@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.Resource;
+import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.project.ProjectService;
 import cn.zucc.graduation.service.resource.ResourceService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 /**
  * @author jiangyukun
@@ -39,6 +41,7 @@ public class ResourceShareController {
 			projectResource.setProject(project);
 			projectResource.setLocation(resource.getLocation());
 			projectResource.setName(resource.getName());
+			projectResource.setUploadUser(new User(ShiroUserUtil.getCurrentUserId()));
 			projectResourceService.save(projectResource);
 		} catch (Throwable e) {
 			System.out.println(e);

@@ -1,8 +1,10 @@
 package cn.zucc.graduation.web.index;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,47 +12,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.zucc.graduation.entity.Group;
 import cn.zucc.graduation.entity.Message;
+import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
-import cn.zucc.graduation.service.acount.ShiroDbRealm.ShiroUser;
 import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.message.MessageService;
+import cn.zucc.graduation.service.project.ProjectService;
+import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private MessageService messageService;
-
 	@Autowired
 	private GroupService groupService;
+	@Autowired
+	private ProjectService projectService;
 
 	@RequestMapping("index")
 	public String index(Model model) {
-		List<Message> messages = messageService.findMessagesByReceiveIdAndUnRead(getCurrentUserId());
+		List<Message> messages = messageService.findMessagesByReceiveIdAndUnRead(ShiroUserUtil.getCurrentUserId());
 		model.addAttribute("messages", messages);
 		model.addAttribute("size", messages.size());
 		return "home";
 	}
 
 	@RequestMapping("search")
-	public String search(String content, Model model) {
+	public String search(String content, String groupName, String projectName, Model model) {
+		List<User> users = null;
+		List<Group> groups = null;
+		if (groupName.equals("") && projectName.equals("")) {
+			users = accountService.search(content.trim());
+			groups = groupService.search(content.trim());
+		} else if (!groupName.equals("")) {
+			Group group = groupService.getGroupByGroupName(groupName);
+			users = new ArrayList<User>();
+			for (User user : group.getUsers()) {
+				Pattern p = Pattern.compile(".*" + content + ".*");
+				Matcher m = p.matcher(user.getLoginName());
+				if (m.find()) {
+					users.add(user);
+				} else {
+					m = p.matcher(user.getName());
+					if (m.find()) {
+						users.add(user);
+					}
+				}
+			}
+		} else if (!projectName.equals("")) {
+			Project project = projectService.getProjectByProjectName(projectName);
+			Group group = project.getGroup();
+			users = new ArrayList<User>();
+			for (User user : group.getUsers()) {
+				Pattern p = Pattern.compile(".*" + content + ".*");
+				Matcher m = p.matcher(user.getLoginName());
+				if (m.find()) {
+					users.add(user);
+				} else {
+					m = p.matcher(user.getName());
+					if (m.find()) {
+						users.add(user);
+					}
+				}
+			}
+		}
 		model.addAttribute("content", content);
-		List<User> users = accountService.search(content.trim());
-		List<Group> groups = groupService.search(content.trim());
 		model.addAttribute("users", users);
 		model.addAttribute("groups", groups);
 		return "search";
-	}
-
-	private Long getCurrentUserId() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		if (user != null) {
-			return user.getId();
-		}
-		return -1L;
 	}
 }

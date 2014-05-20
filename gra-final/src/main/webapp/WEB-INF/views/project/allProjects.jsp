@@ -8,6 +8,10 @@
 <title>项目</title>
 </head>
 <body>
+	<ol class="breadcrumb">
+		<li><a href="${ctx}/project">项目</a></li>
+		<li class="active">所有项目</li>
+	</ol>
 	<ul class="list-group">
 		<span class="label label-default">所有项目列表</span>
 		<c:forEach items="${projects}" var="project">

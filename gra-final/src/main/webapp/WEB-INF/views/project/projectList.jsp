@@ -16,6 +16,7 @@
 			</div>
 		</div>
 	</c:if>
+
 	<div style="clear:both;"></div>
 	<div class="btn-group pull-right">
 		<a class="btn active" href="${ctx}/project/allProjects">查看所有项目</a>

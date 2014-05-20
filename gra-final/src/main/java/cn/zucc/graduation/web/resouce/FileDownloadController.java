@@ -66,7 +66,7 @@ public class FileDownloadController {
 	}
 
 	@RequestMapping(value = "/projectResource/{projectResourceId}")
-	public ResponseEntity<byte[]> downloadProjectResource(@PathVariable("groupResourceId") Long projectResourceId) throws Exception {
+	public ResponseEntity<byte[]> downloadProjectResource(@PathVariable("projectResourceId") Long projectResourceId) throws Exception {
 		ProjectResource projectResource = projectResourceService.getProjectResource(projectResourceId);
 		projectResource.setDownloadTimes(projectResource.getDownloadTimes() + 1);
 		projectResourceService.save(projectResource);

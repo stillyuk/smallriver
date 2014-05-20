@@ -23,7 +23,7 @@
 	</div>
 	<div style="height: 40px;"></div>
 	<ol class="breadcrumb">
-		<li><a href="${ctx}/group">项目</a></li>
+		<li><a href="${ctx}/project">项目</a></li>
 		<li class="active">${project.projectName}</li>
 	</ol>
 	<ul class="list-group">

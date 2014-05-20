@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.zucc.graduation.entity.Discuss;
+import cn.zucc.graduation.entity.Project;
 import cn.zucc.graduation.entity.ProjectResource;
 import cn.zucc.graduation.entity.User;
 import cn.zucc.graduation.service.acount.AccountService;
@@ -32,15 +33,17 @@ public class ProjectResourceController {
 	@RequestMapping("listProjectResource")
 	public String list(long projectId, Model model) {
 		List<ProjectResource> projectResources = projectResourceService.getAllProjectResource(projectId);
+		Project project = projectService.getProject(projectId);
 		model.addAttribute("projectResources", projectResources);
+		model.addAttribute("project", project);
 		return "project/projectResourceList";
 	}
 
 	@RequestMapping("projectResourceDetail")
 	public String groupResourceDetail(long projectResourceId, Model model) {
-		ProjectResource groupResource = projectResourceService.getProjectResource(projectResourceId);
-		model.addAttribute("groupResource", groupResource);
-		return "project/groupResourceDetail";
+		ProjectResource projectResource = projectResourceService.getProjectResource(projectResourceId);
+		model.addAttribute("projectResource", projectResource);
+		return "project/projectResourceDetail";
 	}
 
 	@RequestMapping("addDiscuss")
@@ -73,7 +76,7 @@ public class ProjectResourceController {
 		discusses.add(dis);
 		groupResource.setDiscusses(discusses);
 		projectResourceService.save(groupResource);
-		redirectAttributes.addAttribute("groupResourceId", projectResourceId);
+		redirectAttributes.addAttribute("projectResourceId", projectResourceId);
 		return "redirect:/project/projectResourceDetail";
 	}
 }

@@ -16,15 +16,12 @@
 			</div>
 		</div>
 	</c:if>
-	<div style="clear: both;"></div>
-	<div class="btn-group pull-right">
-		<a class="btn btn-primary" href="${ctx}/project/listProjectResource?groupId=${group.id}">查看项目</a>
-	</div>
-	<div style="height: 40px;"></div>
+	
 	<ol class="breadcrumb">
 		<li><a href="${ctx}/group">团队</a></li>
 		<li class="active">${group.groupName}</li>
 	</ol>
+
 	<ul class="list-group">
 		<li class="list-group-item">组名：${group.groupName}</li>
 		<li class="list-group-item">创建时间：${group.date}</li>

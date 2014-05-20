@@ -68,7 +68,7 @@ public class FileUploadController {
 		String fileName = file.getOriginalFilename();
 		File to = new File(location + getCurrentUserLoginName() + "/" + fileName);
 		while (to.exists()) {
-			fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + fileName;
+			fileName = new SimpleDateFormat("yyyyMMdd_HHmmss_").format(new Date()) + fileName;
 			to = new File(location + getCurrentUserLoginName() + "/" + fileName);
 		}
 		file.transferTo(to);

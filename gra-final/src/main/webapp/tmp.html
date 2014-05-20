@@ -3,8 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <title>mail</title>
+<script src="${ctx}/static/fileupload/jsrender.js"
+	type="text/javascript"></script>
+<script type="text/x-jsrender" id="personListTemplate">
+    {{for persons}}
+        <tr>
+            <td>{{:FirstName}}</td>
+            <td>
+                <a href="/Person/Edit/{{:PersonID}}">Edit</a> | 
+                <a href="/Person/Details/{{:PersonID}}">Details</a> | 
+                <a href="/Person/Delete/{{:PersonID}}">Delete</a>
+            </td>
+        </tr>
+    {{/for}}
+</script>
+
 </head>
 <body>
-
+<div id="XXX"></div>
+<script>
+	var data = [ {
+		FirstName : "jiang",
+		PersonID : "310"
+	}, {
+		FirstName : "yu",
+		PersonID : "333"
+	} ];
+	var html = $("#personListTemplate").render(data);
+	$("#XXX").append(html);
+</script>
 </body>
 </html>
