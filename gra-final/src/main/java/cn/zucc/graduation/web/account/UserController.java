@@ -23,12 +23,11 @@ import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private FriendService friendService;
-
 	@Autowired
 	private MessageService messageService;
 
@@ -59,5 +58,10 @@ public class UserController {
 		model.addAttribute("isFriend", isFriend);
 		model.addAttribute("message", "请求已发送");
 		return "account/userInfo";
+	}
+
+	@RequestMapping("deleteFriend")
+	public void deleteFriend(Long deleteId) {
+		friendService.deleteRelation(ShiroUserUtil.getCurrentUserId(), deleteId);
 	}
 }

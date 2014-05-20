@@ -41,14 +41,14 @@ public class IndexController {
 	}
 
 	@RequestMapping("search")
-	public String search(String content, String groupName, String projectName, Model model) {
+	public String search(String content, String searchGroupName, String searchProjectName, Model model) {
 		List<User> users = null;
 		List<Group> groups = null;
-		if (groupName.equals("") && projectName.equals("")) {
+		if (searchGroupName.equals("") && searchProjectName.equals("")) {
 			users = accountService.search(content.trim());
 			groups = groupService.search(content.trim());
-		} else if (!groupName.equals("")) {
-			Group group = groupService.getGroupByGroupName(groupName);
+		} else if (!searchGroupName.equals("")) {
+			Group group = groupService.getGroupByGroupName(searchGroupName);
 			users = new ArrayList<User>();
 			for (User user : group.getUsers()) {
 				Pattern p = Pattern.compile(".*" + content + ".*");
@@ -62,8 +62,8 @@ public class IndexController {
 					}
 				}
 			}
-		} else if (!projectName.equals("")) {
-			Project project = projectService.getProjectByProjectName(projectName);
+		} else if (!searchProjectName.equals("")) {
+			Project project = projectService.getProjectByProjectName(searchProjectName);
 			Group group = project.getGroup();
 			users = new ArrayList<User>();
 			for (User user : group.getUsers()) {

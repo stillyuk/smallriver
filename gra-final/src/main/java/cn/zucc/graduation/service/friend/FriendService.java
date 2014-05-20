@@ -13,6 +13,7 @@ import cn.zucc.graduation.repository.FriendDao;
 @Service
 @Transactional
 public class FriendService {
+
 	@Autowired
 	private FriendDao friendDao;
 
@@ -30,5 +31,10 @@ public class FriendService {
 			return true;
 		}
 		return false;
+	}
+
+	public void deleteRelation(Long currentUserId, Long deleteId) {
+		friendDao.delete(friendDao.findFriendByFromAndTo(currentUserId, deleteId));
+		friendDao.delete(friendDao.findFriendByFromAndTo(deleteId, currentUserId));
 	}
 }

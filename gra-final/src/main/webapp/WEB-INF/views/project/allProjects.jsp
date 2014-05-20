@@ -18,7 +18,7 @@
 			<li class="list-group-item">
 				<a href="${ctx}/group/joinGroup?groupId=${project.id}">申请加入所在团队</a>
 				<div class="col-sm-4">
-					组名：<a href="${ctx}/group/groupDetail?groupId=${group.id}">${project.projectName}</a>
+					项目名：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a>
 				</div>
 			</li>
 		</c:forEach>

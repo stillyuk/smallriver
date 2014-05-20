@@ -8,6 +8,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
 <script>
+	function deleteFriend(e) {
+		var choice = confirm("确定要删除此好友吗？");
+		if (!choice) {
+			return;
+		}
+		$.ajax({
+			asycn : false,
+			type : "POST",
+			url : "${ctx}/user/deleteFriend",
+			data : {
+				deleteId : "${user.id}"
+			}
+		});
+		location.href = "${ctx}/friend";
+	}
 </script>
 </head>
 <body>
@@ -28,6 +43,11 @@
 			</c:if>
 			<c:if test="${!isFriend}">
 				<a href="${ctx}/user/add?toId=${user.id}">添加好友</a>
+			</c:if>
+		</li>
+		<li class="list-group-item">
+			<c:if test="${isFriend}">
+				<button class="btn" onclick="deleteFriend(this);">删除好友</button>
 			</c:if>
 		</li>
 	</ul>

@@ -40,24 +40,24 @@
 				var projectHtml = $.templates("#projectTemplate").render(projects);
 				$("#groups").append(groupHtml);
 				$("#projects").append(projectHtml);
-				$("#group").show();
-				$("#project").show();
 			}
+			$("#group").show(200);
+			$("#project").show(200);
 		});
 		$("#content").blur(function() {
-			/* if (!$("#group").is(":hover") && !$("#group").is(":hover")) {
-				$("#groups").remove();
-				$("#projects").remove();
-			} */
+			if (!$("#group").is(":hover") && !$("#group").is(":hover")) {
+				$("#group").hide(400);
+				$("#project").hide(400);
+			}
 		});
 	});
 	function choiceGroup(t) {
 		$("#allGroups").text($(t).text());
-		$("#groupName").val($(t).text());
+		$("#searchGroupName").val($(t).text());
 	}
 	function choiceProject(t) {
 		$("#allProjects").text($(t).text());
-		$("#projectName").val($(t).text());
+		$("#searchProjectName").val($(t).text());
 	}
 </script>
 <div id="header">
@@ -90,7 +90,7 @@
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span id="allGroups">所在团队</span> <span class="caret"></span>
 							</button>
-							<input id="groupName" name="groupName" type="hidden" value="" />
+							<input id="searchGroupName" name="groupName" type="hidden" value="" />
 							<ul id="groups" class="dropdown-menu pull-right">
 							</ul>
 						</div>
@@ -98,7 +98,7 @@
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span id="allProjects">所在项目 </span><span class="caret"></span>
 							</button>
-							<input id="projectName" name="projectName" type="hidden" value="" />
+							<input id="searchProjectName" name="projectName" type="hidden" value="" />
 							<ul id="projects" class="dropdown-menu pull-right">
 							</ul>
 						</div>
