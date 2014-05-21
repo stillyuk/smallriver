@@ -27,5 +27,12 @@
 			</div>
 		</c:forEach>
 	</c:if>
+	<c:if test="${not empty projects}">
+		<c:forEach items="${projects}" var="project">
+			<div class="alert alert-info">
+				项目：<a href="${ctx}/project/projectDetail?projectId=${project.id}">${project.projectName}</a>
+			</div>
+		</c:forEach>
+	</c:if>
 </body>
 </html>

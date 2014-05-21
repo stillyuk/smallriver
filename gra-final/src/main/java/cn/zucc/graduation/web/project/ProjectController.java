@@ -23,6 +23,7 @@ import cn.zucc.graduation.service.group.GroupService;
 import cn.zucc.graduation.service.project.ProjectResourceService;
 import cn.zucc.graduation.service.project.ProjectService;
 import cn.zucc.graduation.utils.PropUtil;
+import cn.zucc.graduation.utils.StringUtil;
 import cn.zucc.graduation.web.shiro.ShiroUserUtil;
 
 import com.fasterxml.jackson.core.JsonEncoding;
@@ -81,8 +82,16 @@ public class ProjectController {
 
 	@RequestMapping(value = "getAllProjects")
 	@ResponseBody
-	public String getAllProjects(Model model) throws Exception {
-		List<Project> projects = projectService.getAllProjects();
+	public String getAllProjects(String groupName, Model model) throws Exception {
+		List<Project> projects = null;
+		if (StringUtil.hasLength(groupName)) {
+			Group group = groupService.getGroupByGroupName(groupName);
+			if (group != null && group.getProjects() != null) {
+				projects = group.getProjects();
+			}
+		} else {
+			projects = projectService.getAllProjects();
+		}
 		OutputStream out = new ByteArrayOutputStream();
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonGenerator jsonGenerator = objectMapper.getFactory().createJsonGenerator(out, JsonEncoding.UTF8);

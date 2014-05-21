@@ -44,9 +44,11 @@ public class IndexController {
 	public String search(String content, String searchGroupName, String searchProjectName, Model model) {
 		List<User> users = null;
 		List<Group> groups = null;
+		List<Project> projects = null;
 		if (searchGroupName.equals("") && searchProjectName.equals("")) {
 			users = accountService.search(content.trim());
 			groups = groupService.search(content.trim());
+			projects = projectService.search(content.trim());
 		} else if (!searchGroupName.equals("")) {
 			Group group = groupService.getGroupByGroupName(searchGroupName);
 			users = new ArrayList<User>();
@@ -82,6 +84,7 @@ public class IndexController {
 		model.addAttribute("content", content);
 		model.addAttribute("users", users);
 		model.addAttribute("groups", groups);
+		model.addAttribute("projects", projects);
 		return "search";
 	}
 }

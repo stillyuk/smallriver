@@ -38,7 +38,7 @@ public class RegisterController {
 		user.setRoles("user");
 		UserDetailInfo userDetailInfo = new UserDetailInfo();
 		userDetailInfo.setLoginDays(0);
-		userDetailInfo.setUserLevel(1);
+		userDetailInfo.setUserLevel(0);
 		user.setUserDetailInfo(userDetailInfo);
 		accountService.save(user);
 		final User u = user;

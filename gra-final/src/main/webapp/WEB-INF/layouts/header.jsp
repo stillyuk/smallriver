@@ -19,20 +19,22 @@
 				$.ajax({
 					async : false,
 					type : "POST",
-					url : "${ctx}/project/getAllProjects",
+					url : "${ctx}/group/getAllGroups",
 					data : {},
 					success : function(data) {
-						projects = data;
+						groups = data;
 					},
 					dataType : "json"
 				});
 				$.ajax({
 					async : false,
 					type : "POST",
-					url : "${ctx}/group/getAllGroups",
-					data : {},
+					url : "${ctx}/project/getAllProjects",
+					data : {
+						groupName : $("#searchGroupName").val()
+					},
 					success : function(data) {
-						groups = data;
+						projects = data;
 					},
 					dataType : "json"
 				});
@@ -45,7 +47,7 @@
 			$("#project").show(200);
 		});
 		$("#content").blur(function() {
-			if (!$("#group").is(":hover") && !$("#group").is(":hover")) {
+			if ($("#content").val() === "" && !$("#group").is(":hover") && !$("#project").is(":hover")) {
 				$("#group").hide(400);
 				$("#project").hide(400);
 			}
@@ -54,6 +56,20 @@
 	function choiceGroup(t) {
 		$("#allGroups").text($(t).text());
 		$("#searchGroupName").val($(t).text());
+		$.ajax({
+			async : false,
+			type : "POST",
+			url : "${ctx}/project/getAllProjects",
+			data : {
+				groupName : $("#searchGroupName").val()
+			},
+			success : function(data) {
+				projects = data;
+			},
+			dataType : "json"
+		});
+		var projectHtml = $.templates("#projectTemplate").render(projects);
+		$("#projects").empty().append(projectHtml);
 	}
 	function choiceProject(t) {
 		$("#allProjects").text($(t).text());
@@ -90,7 +106,7 @@
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span id="allGroups">所在团队</span> <span class="caret"></span>
 							</button>
-							<input id="searchGroupName" name="groupName" type="hidden" value="" />
+							<input id="searchGroupName" name="searchGroupName" type="hidden" value="" />
 							<ul id="groups" class="dropdown-menu pull-right">
 							</ul>
 						</div>
@@ -98,12 +114,11 @@
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span id="allProjects">所在项目 </span><span class="caret"></span>
 							</button>
-							<input id="searchProjectName" name="projectName" type="hidden" value="" />
+							<input id="searchProjectName" name="searchProjectName" type="hidden" value="" />
 							<ul id="projects" class="dropdown-menu pull-right">
 							</ul>
 						</div>
 						<button type="submit" class="btn btn-default">查询</button>
-						<div class="form-group" id="jiang" style="position: absolute;"></div>
 					</form>
 					<span class="btn-group pull-right">
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

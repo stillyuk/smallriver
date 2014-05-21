@@ -26,10 +26,8 @@ public class JoinGroupController {
 
 	@Autowired
 	private GroupService groupService;
-
 	@Autowired
 	private AccountService accountService;
-
 	@Autowired
 	private MessageService messageService;
 
@@ -54,11 +52,11 @@ public class JoinGroupController {
 	}
 
 	@RequestMapping("/handler")
-	public String handler(Long toId, String choice, Long messageId, Model model) {
+	public void handler(Long toId, String choice, Long messageId, Model model) {
 		Message message = messageService.getMessage(messageId);
 		String content = message.getContent();
 		String groupName = null;
-		Pattern p = Pattern.compile("申请加入群(\\w+)");
+		Pattern p = Pattern.compile("申请加入群(.+)");
 		Matcher m = p.matcher(content);
 		while (m.find()) {
 			groupName = m.group(1);
@@ -69,7 +67,6 @@ public class JoinGroupController {
 		groupService.save(group);
 		message.setIsRead(true);
 		messageService.save(message);
-		return "message/detail";
 	}
 
 	private Long getCurrentUserId() {
